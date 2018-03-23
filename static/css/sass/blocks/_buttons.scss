@@ -1,0 +1,95 @@
+/* articles section
+================================ */
+.button {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    @include padding(17px 25px);
+    display: inline-block;
+    border: 1px solid $transparent;
+    @include font-size(14); 
+    line-height: 1;
+    letter-spacing: 1.4px; 
+    @include transition(all 0.3s ease);
+    font-family: $primary-fonts-bold;
+    &--small {
+        @include padding(10px 16px);
+    }
+    &--block {
+        width: $viewportSize;
+        display: block;
+    }
+    &--rounded {
+        @include border-radius(25px);
+    }
+    &--radius {
+        @include border-radius(4px); 
+    }
+    &__bordered {
+        &--grey {
+            border-color: #979797 !important;
+            color: $black !important;
+            background: none repeat scroll 0 0;
+            &:hover, &:focus { 
+                color: $white !important;
+                background: #979797 none repeat scroll 0 0;
+            }
+        }
+    }
+    &--grey {
+        background: $black none repeat scroll 0 0;
+        color: $white !important;
+        border-color: $black;
+        &:hover, &:focus {
+            background: lighten($black, 8%) none repeat scroll 0 0; 
+        }
+    }
+    &--blue {
+        background: $blue none repeat scroll 0 0;
+        color: $white !important;
+        border-color: $blue;
+        &:hover, &:focus {
+            background: lighten($blue, 8%) none repeat scroll 0 0;
+            border-color: lighten($blue, 8%);
+        }
+    }
+    &--darkBlue {
+        background: $darkBlue none repeat scroll 0 0;
+        color: $white !important;
+        border-color: $darkBlue;
+        &:hover, &:focus {
+            background: lighten($darkBlue, 8%) none repeat scroll 0 0;
+            border-color: lighten($darkBlue, 8%);
+        }
+    }
+    &--red {
+        background: $red none repeat scroll 0 0;
+        color: $white !important;
+        border-color: $red;
+        &:hover, &:focus {
+            background: darken($red, 8%) none repeat scroll 0 0;
+            border-color: darken($red, 8%); 
+        }
+    }
+    &--green {
+        background: $green none repeat scroll 0 0;
+        color: $darkBlue !important;
+        border-color: $green;
+        &:hover, &:focus {
+            background: darken($green, 8%) none repeat scroll 0 0;
+            border-color: darken($green, 8%); 
+        }
+    }
+    &__icon {
+        &--left {
+            margin-right: 8px;
+        }
+        &--right {
+            margin-left: 8px;
+        }
+    }
+    &:focus {
+        outline: none;
+    }
+}

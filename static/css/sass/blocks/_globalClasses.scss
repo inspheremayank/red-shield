@@ -1,0 +1,221 @@
+/* Global classes
+================================ */
+.upper { 
+    text-transform: uppercase; 
+}
+.hide { 
+    display: none;
+}
+.divider-line {
+    margin: 20px 0 40px;
+    width: $viewportSize;
+    position: relative;
+    float: left;
+    clear: left;
+    &:before {
+        content: '';
+        height: 2px;
+        width: 40px;
+        background: $borderlight none repeat scroll 0 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    &--width80 {
+        &:before {
+            width: 80px; 
+        }
+    }
+    &--space40 {
+        margin: 40px 0 60px; 
+    }
+}
+.mt {
+    &--c4 {
+        margin-top: 4rem !important;
+    }
+    &--c5 {
+        margin-top: 5rem !important;
+    }
+    &--c6 {
+        margin-top: 6rem !important;
+    }
+    &--c7 {
+        margin-top: 7rem !important;
+    }
+}
+.fullwidth { 
+    width: $viewportSize !important;
+}
+.green-color {
+    color: $green;
+}
+.white {
+    &--bg {
+        background: $white !important;
+    }
+    &--color {
+        color: $white !important;
+    }
+}
+.offwhite {
+    &--bg { 
+        background: $offwhite !important;
+        &-opacity02 {
+            background: rgba($offwhite, 0.2) !important;
+        }
+    }
+    &--color {
+        color: $offwhite !important;
+    }
+}
+.red {
+    &--bg {
+        background: $red !important;
+    }
+    &--color {
+        color: $red !important;
+    }
+}
+.darkBlue {
+    &--bg {
+        background: $darkBlue !important;
+    }
+    &--color {
+        color: $darkBlue !important;
+    }
+}
+.badge, .label {
+    &--success {
+        background: $success none repeat scroll 0 0;
+    }
+    &--danger {
+        background: $error none repeat scroll 0 0;
+    }
+    &--warning {
+        background: $warning none repeat scroll 0 0;
+    }
+    &--info {
+        background: $info none repeat scroll 0 0;
+    }
+}
+.image-covered {
+    @include background-size(cover);
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.mobile-responsive {
+    &__fullwidth {
+        @media #{$media-phone} { 
+            width: $viewportSize;
+        }
+        &--d599 {
+            @media #{$media-tablet} {
+                width: $viewportSize;
+            }
+        }
+    }
+    &__px0-to-10 {
+        @media #{$media-tablet} {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+        }
+    }
+}
+.containerFluid-content {
+    width: calc(1320px / 2 - 10px); 
+    float: right;
+    &-left {
+        float: left;
+    }
+    &-margin100 {
+        width: calc(1320px / 2 - 100px);
+        @media (max-width: 1320px) {
+            width: calc(1140px / 2 - 100px);
+        }
+    }
+    @media (max-width: 1320px) {
+        width: calc(1140px / 2 - 10px);
+    }
+    @media #{$media-desktop} {
+        width: calc(960px / 2 - 10px);
+    }
+    @media #{$media-ipadPortrait} {
+        width: calc(720px / 2 - 10px);
+    } 
+    @media #{$media-ipadSmall} {
+        width: 100%;
+        max-width: calc(540px - 20px);
+        float: none;
+        margin: 0 auto;
+    }    
+}
+.flip-containers {
+    @media #{$media-ipadSmall} {
+        .flex-last {
+            -webkit-box-ordinal-group: 0;
+            -webkit-order: -1;
+            -ms-flex-order: -1;
+            order: -1;
+        } 
+        .flex-first {
+            -webkit-box-ordinal-group: 2;
+            -webkit-order: 1;
+            -ms-flex-order: 1;
+            order: 1;
+        }
+    }
+}
+.flex-unordered {
+    -webkit-box-ordinal-group: 1;
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+}
+.flex-first {
+    -webkit-box-ordinal-group: 0;
+    -webkit-order: -1;
+    -ms-flex-order: -1;
+    order: -1;
+}
+.flex-last {
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+}
+.no-data {
+    @include font-size();
+    margin: 60px 0 15px; 
+    @include padding(25px 0);
+    background: darken($white, 5%) none repeat scroll 0 0;
+    border: 1px solid darken($white, 8%);
+    @include border-radius(4px);
+    p {
+        margin-bottom: 0px;
+    }
+    &.less-space {
+        margin: 20px 0;
+        @include padding(15px 0);
+    }
+}
+.no-link {
+    cursor: default !important;
+}
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+.load__more {
+    width: $viewportSize;
+    text-align: center;
+    margin: 40px 0;
+    .button {
+        @include font-size();
+        @include padding(8px 30px);
+        background: $blue none repeat scroll 0 0 !important;
+        @include border-radius(1px);
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        color: $white;
+    }
+}
