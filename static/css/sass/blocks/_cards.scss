@@ -1,0 +1,25 @@
+/* cards section
+================================ */
+.card {
+    &__view {
+        margin-bottom: 20px;
+        &-content {
+            position: relative;
+            display: flex;
+            flex-direction: column; 
+            height: 300px; 
+            justify-content: flex-end; 
+            overflow: hidden;
+            .mask {
+                position: absolute;
+                top: 0;
+                left: 0;
+                @include size($viewportSize);
+                background-image: linear-gradient(rgba($zblack, 0), rgba($zblack, 0.9));
+                @include opacity(0.6);
+                z-index: 11; 
+                @include transition(all 0.3s ease);
+            }
+        }
+    }
+}

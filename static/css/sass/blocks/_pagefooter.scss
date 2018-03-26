@@ -1,2 +1,50 @@
 /* Page Footer section
 ================================ */
+.footer {
+    &-main {
+        @include padding(30 0);
+        border-top: 1px solid $border;
+        &__container {
+            width: $viewportSize;
+            @media #{$media-ipadSmall} {
+                @include flex-direction(column,vertical);
+            }
+            &--logo {
+                a {
+                    display: block;
+                    width: 50px;
+                }
+            }
+            &__listing {
+                @include flexbox();
+                @media #{$media-ipadSmall} {
+                    margin: 15px 0;
+                    @include flex-direction(column,vertical);
+                    text-align: center;
+                }
+                &--items {
+                    margin: 0 20px; 
+                    @include font-size(18);
+                    @media #{$media-desktop} {
+                        @include font-size(16);
+                        margin: 0 10px;
+                    }
+                    @media #{$media-ipadSmall} {
+                        margin: 10px 0px;
+                    }
+                }
+            }
+            &__social {
+                width: 120px;
+                @media #{$media-ipadPortrait} {
+                    width: 170px;
+                    text-align: center;
+                }
+                a {
+                    color: $blue;
+                    margin: 0 6px;
+                }
+            }
+        }
+    }
+}

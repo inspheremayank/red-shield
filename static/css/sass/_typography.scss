@@ -6,15 +6,52 @@
 -------------------------------------------------------------- */
 /* FONT PATH
  * -------------------------- */
+@font-face {
+    font-family: 'LatoLight';
+    src: url('../fonts/lato/LatoLight.eot');
+    src: url('../fonts/lato/LatoLight.eot') format('embedded-opentype'),
+         url('../fonts/lato/LatoLight.woff2') format('woff2'),
+         url('../fonts/lato/LatoLight.woff') format('woff'),
+         url('../fonts/lato/LatoLight.ttf') format('truetype'),
+         url('../fonts/lato/LatoLight.svg#LatoLight') format('svg');
+}
+@font-face {
+    font-family: 'LatoRegular';
+    src: url('../fonts/lato/LatoRegular.eot');
+    src: url('../fonts/lato/LatoRegular.eot') format('embedded-opentype'),
+         url('../fonts/lato/LatoRegular.woff2') format('woff2'),
+         url('../fonts/lato/LatoRegular.woff') format('woff'),
+         url('../fonts/lato/LatoRegular.ttf') format('truetype'),
+         url('../fonts/lato/LatoRegular.svg#LatoRegular') format('svg');
+}
+@font-face {
+    font-family: 'LatoBold';
+    src: url('../fonts/lato/LatoBold.eot');
+    src: url('../fonts/lato/LatoBold.eot') format('embedded-opentype'),
+         url('../fonts/lato/LatoBold.woff2') format('woff2'),
+         url('../fonts/lato/LatoBold.woff') format('woff'),
+         url('../fonts/lato/LatoBold.ttf') format('truetype'),
+         url('../fonts/lato/LatoBold.svg#LatoBold') format('svg');
+}
+@font-face {
+    font-family: 'LatoBlack';
+    src: url('../fonts/lato/LatoBlack.eot');
+    src: url('../fonts/lato/LatoBlack.eot') format('embedded-opentype'),
+         url('../fonts/lato/LatoBlack.woff2') format('woff2'),
+         url('../fonts/lato/LatoBlack.woff') format('woff'),
+         url('../fonts/lato/LatoBlack.ttf') format('truetype'),
+         url('../fonts/lato/LatoBlack.svg#LatoBlack') format('svg');
+}
+
 
 
 /* Open Sans Font */
-$primary-fonts-light:                    'RalewayLight', Arial, sans-serif;
-$primary-fonts-regular:                  'RalewayRegular', Arial, sans-serif;
-$primary-fonts-medium:                   'RalewayMedium', Arial, sans-serif;
-$primary-fonts-semiBold:                 'RalewaySemiBold', Arial, sans-serif;
-$primary-fonts-bold:                     'RalewayBold', Arial, sans-serif;
-$primary-fonts-black:                    'RalewayBlack', Arial, sans-serif;
+$primary-fonts-light:                    'LatoLight', Arial, sans-serif;
+$primary-fonts-regular:                  'LatoRegular', Arial, sans-serif;
+//$primary-fonts-medium:                   'RalewayMedium', Arial, sans-serif;
+//$primary-fonts-semiBold:                 'RalewaySemiBold', Arial, sans-serif;
+$primary-fonts-bold:                     'LatoBold', Arial, sans-serif;
+$primary-fonts-black:                    'LatoBlack', Arial, sans-serif;
 
 
 
@@ -88,10 +125,10 @@ h4, h5, h6 {
     font-family: $primary-fonts-regular;
 }
 .font-medium {
-    font-family: $primary-fonts-medium;
+    //font-family: $primary-fonts-medium;
 }
 .font-semiBold {
-    font-family: $primary-fonts-semiBold;
+    //font-family: $primary-fonts-semiBold;
 }
 .font-bold {
     font-family: $primary-fonts-bold;
@@ -175,7 +212,9 @@ q {
     font-style: italic;
     color: $black;
 }
-
+.fs-52 {
+    @include font-size(52);
+}
 
 
 

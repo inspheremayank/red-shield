@@ -5,14 +5,14 @@
     outline: none;
     background: none;
     cursor: pointer;
-    @include padding(17px 25px);
+    @include padding(16 22);
     display: inline-block;
     border: 1px solid $transparent;
-    @include font-size(14); 
+    @include font-size(18); 
     line-height: 1;
-    letter-spacing: 1.4px; 
+    letter-spacing: 1.6px; 
     @include transition(all 0.3s ease);
-    font-family: $primary-fonts-bold;
+    font-family: $primary-fonts-regular;
     &--small {
         @include padding(10px 16px);
     }
@@ -54,13 +54,22 @@
             border-color: lighten($blue, 8%);
         }
     }
-    &--darkBlue {
-        background: $darkBlue none repeat scroll 0 0;
+    &--black {
+        background: $zblack none repeat scroll 0 0;
         color: $white !important;
-        border-color: $darkBlue;
+        border-color: $zblack;
         &:hover, &:focus {
-            background: lighten($darkBlue, 8%) none repeat scroll 0 0;
-            border-color: lighten($darkBlue, 8%);
+            background: lighten($zblack, 8%) none repeat scroll 0 0;
+            border-color: lighten($zblack, 8%);
+        }
+    }
+    &--lightBlue {
+        background: $light-blue none repeat scroll 0 0;
+        color: $white !important;
+        border-color: $light-blue;
+        &:hover, &:focus {
+            background: lighten($light-blue, 8%) none repeat scroll 0 0;
+            border-color: lighten($light-blue, 8%);
         }
     }
     &--red {
@@ -68,8 +77,8 @@
         color: $white !important;
         border-color: $red;
         &:hover, &:focus {
-            background: darken($red, 8%) none repeat scroll 0 0;
-            border-color: darken($red, 8%); 
+            background: lighten($red, 8%) none repeat scroll 0 0;
+            border-color: lighten($red, 8%); 
         }
     }
     &--green {

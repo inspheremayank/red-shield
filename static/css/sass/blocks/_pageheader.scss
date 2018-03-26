@@ -1,2 +1,52 @@
 /* Page Header section
 ================================ */
+.header {
+    @include padding(25 0); 
+    z-index: 9999;
+    width: $viewportSize;
+    @include transition(all 0.3s ease);
+    position: absolute;
+    background: rgba($white, 0) none repeat scroll 0 0;
+    @include box-shadow(rgba(0,0,0,0) 0px 1px 1.5px 1px);
+    top: 0;
+    left: 0;
+    &__section {
+        width: $viewportSize;
+        &-left {
+            .main-logo {
+                display: block;
+                width: 80px;
+                @include transition(all 0.3s ease);
+            }
+        }
+        &-right {
+            .button {
+                @include padding(15 35);
+                @include transition(all 0.3s ease);
+                @media #{$media-desktop} {
+                    @include padding(17px 12px);
+                    @include font-size(13);
+                }
+            }
+        }
+    }
+    &__fixed {
+        @include padding(15 0);
+        background: rgba($white, 1) none repeat scroll 0 0;
+        @include box-shadow(rgba(0,0,0,0.2) 0px 1px 1.5px 1px);
+        position: fixed;
+        .header__section {
+            &-left {
+                .main-logo {
+                    width: 50px;
+                }
+            }
+            &-right {
+                .button {
+                    @include padding(12 30);
+                    @include font-size(14);
+                }
+            }
+        }
+    }
+}

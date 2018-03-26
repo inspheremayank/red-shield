@@ -1,0 +1,184 @@
+/* Page Footer section
+================================ */
+.cta-wrap {
+    position: relative;
+    z-index: 10;
+    &__main {
+        @include flexbox();
+        position: relative;
+        z-index: 12;
+        &--title {
+            @include font-size(50);
+            color: $white;
+        }
+        &--description {
+            @include font-size(24);
+            @extend .font-bold;
+            color: $white;
+        }
+        &--buttons {
+            @include margin-top(30);
+            a {
+                @include margin(0 8);
+            }
+            @media #{$media-ipadSmall} {
+                @include flexbox();
+                @include flex-direction(column,vertical);
+                width: $viewportSize;
+                a {
+                    @include margin(8 0);
+                    text-align: center;
+                }
+            }
+        }
+    }
+    &.blue-bg {
+        background-color: $blue;
+    }
+    &.bg-image {
+        @extend .image-covered;
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            @include size(#{$viewportSize});
+            z-index: 11;
+        }
+        &--overly-blue {
+            &:before {
+                background-color: rgba($blue, 0.8);
+            }
+        }
+        &--overly-white {
+            &:before {
+                background-color: rgba($white, 0.8);
+            }
+        }
+    }
+    @include padding(40 10);
+    &__subscribe {
+        @include margin(65 0);
+        .cta-wrap__main {
+            @include align-items(center);
+            @media #{$media-ipadPortrait} {
+                @include flex-direction(column,vertical);
+            }
+            &--sl {
+                @include margin-right(120);
+                width: 600px;
+                @media #{$media-ipadPortrait} {
+                    width: $viewportSize;
+                    @include margin-right(0);
+                    text-align: center;
+                    @include padding(0 25);
+                    @include margin-bottom(20);
+                }
+            }
+            &--sr {
+                max-width: 750px;
+                width: $viewportSize;
+                .input-group {
+                    @include flexbox();
+                    height: 60px;
+                    input {
+                        @include border-radius(4px 0 0 4px);
+                        height: 60px;
+                        &:focus {
+                            border-color: $white;
+                        }
+                    }
+                    .button {
+                        @include border-radius(0px 4px 4px 0px);
+                    }
+                    @media #{$media-phone} {
+                        @include flex-direction(column,vertical);
+                        input {
+                            @include border-radius(4px);
+                        }
+                        .button {
+                            @include margin-top(10);
+                            @include border-radius(4px);
+                        }
+                    }
+                }
+            }
+            &--title {
+                @include font-size(30);
+                @extend .font-light;
+            }
+            &--description {
+                @include font-size(16);
+                @extend .font-regular;
+                line-height: 1.56;
+                @include opacity(0.8);
+                margin-top: 12px;
+            }
+        }
+    }
+    &__action {
+        .cta-wrap__main {
+            @include flex-direction(column,vertical);
+            @include align-items(center);
+            @include margin-bottom(12);
+            &--logo {
+                width: 80px;
+                margin-bottom: 25px;
+            }
+            &--description {
+                max-width: 650px;
+                text-align: center;
+            }
+            &--buttons {
+                a {
+                    @include padding(12 22);
+                }
+            }
+        }
+    }
+    &__about {
+        @include padding(95 0 105);
+        .cta-wrap__main {
+            @include flex-direction(column,vertical);
+            @include align-items(center);
+            &--title {
+                color: $zblack;
+                @extend .font-light;
+            }
+            &--description {
+                @include font-size(20);
+                color: $black;
+                @extend .font-regular;
+                @include margin-top(20);
+                max-width: 750px;
+            }
+        }
+    }
+    &__learning {
+        @include padding(70 0);
+        .cta-wrap__main {
+            @include flexbox();
+            @include flex-direction(column,vertical);
+            @include align-items(flex-end);
+            &--sr {
+                background: rgba($white, 0.8) none repeat scroll 0 0;
+                @include border-radius(4px);
+                @include size(550px);
+                @include flexbox();
+                @include flex-direction(column,vertical);
+                @include justify-content(space-between);
+                @include padding(70 50);
+            }
+            &--title {
+                color: $zblack;
+                @extend .font-light;
+            }
+            &--description {    
+                color: $black;
+                @extend .font-regular;
+                @include margin-top(20);
+                line-height: 1.83;
+            }
+        }
+    }
+}

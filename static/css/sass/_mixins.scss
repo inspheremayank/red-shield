@@ -69,21 +69,57 @@
 
 /* Padding */
 @mixin padding($padding) {
-    padding:$padding;
+  @if length($padding) == 1 {
+      padding: $padding/16 + rem;
+  }
+  @if length($padding) == 2 {
+      padding: nth($padding, 1)/16 + rem nth($padding, 2)/16 + rem;
+  }
+  @if length($padding) == 3 {
+      padding: nth($padding, 1)/16 + rem nth($padding, 2)/16 + rem nth($padding, 3)/16 + rem;
+  }
+  @if length($padding) == 4 {
+      padding: nth($padding, 1)/16 + rem nth($padding, 2)/16 + rem nth($padding, 3)/16 + rem nth($padding, 4)/16 + rem;
+  }
 }
 @mixin padding-top($padding-top) {
-    padding-top:$padding-top;
+    padding-top: $padding-top/16 + rem;
 }
 @mixin padding-right($padding-right) {
-    padding-right:$padding-right;
+    padding-right: $padding-right/16 + rem;
 }
 @mixin padding-bottom($padding-bottom) {
-    padding-bottom:$padding-bottom;
+    padding-bottom: $padding-bottom/16 + rem;
 }
 @mixin padding-left($padding-left) {
-    padding-left:$padding-left;
+    padding-left: $padding-left/16 + rem;
 }
-
+@mixin margin($margin) {
+  @if length($margin) == 1 {
+      margin: $margin/16 + rem;
+  }
+  @if length($margin) == 2 {
+      margin: nth($margin, 1)/16 + rem nth($margin, 2)/16 + rem;
+  }
+  @if length($margin) == 3 {
+      margin: nth($margin, 1)/16 + rem nth($margin, 2)/16 + rem nth($margin, 3)/16 + rem;
+  }
+  @if length($margin) == 4 {
+      margin: nth($margin, 1)/16 + rem nth($margin, 2)/16 + rem nth($margin, 3)/16 + rem nth($margin, 4)/16 + rem;
+  }
+}
+@mixin margin-top($margin-top) {
+    margin-top: $margin-top/16 + rem;
+}
+@mixin margin-bottom($margin-bottom) {
+    margin-bottom: $margin-bottom/16 + rem;
+}
+@mixin margin-left($margin-left) {
+    margin-left: $margin-left/16 + rem;
+}
+@mixin margin-right($margin-right) {
+    margin-right: $margin-right/16 + rem;
+}
 /* Transition */
 @mixin transition($transition) {
     transition: $transition;
@@ -219,6 +255,29 @@
 	display: -moz-flex;
 	display: -ms-flexbox;
 	display: flex;
+}
+@mixin flex-direction($direction, $orient) {
+    -webkit-flex-direction: $direction;
+    -moz-flex-direction: $direction;
+    -ms-flex-direction: $direction;	
+    flex-direction: $direction;
+    -webkit-box-orient: $orient;
+    -moz-box-orient: $orient;
+    -ms-box-orient: $orient;
+    box-orient: $orient;
+}
+@mixin justify-content($justify) {
+  -webkit-justify-content: $justify;
+     -moz-justify-content: $justify;
+      -ms-justify-content: $justify;
+          justify-content: $justify;
+            -ms-flex-pack: $justify;
+}
+@mixin align-items($align) {
+  -webkit-align-items: $align;
+     -moz-align-items: $align;
+      -ms-align-items: $align;
+          align-items: $align;
 }
 @mixin align-self($value: auto) {
 	// No Webkit Box Fallback.

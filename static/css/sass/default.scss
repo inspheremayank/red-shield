@@ -23,8 +23,8 @@ body {
 body {
     height: auto; 
     background:$defaultbg none repeat scroll 0 0;
-    color: $white;
-    font-family: $primary-fonts-light;
+    color: $black2;
+    font-family: $primary-fonts-regular;
     font-weight: $weightRegular;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -48,6 +48,8 @@ ul li, ol li {
 @import 'blocks/table';
 @import 'blocks/pageheader'; 
 @import 'blocks/pagefooter';
+@import 'blocks/cta-section';
+@import 'blocks/cards';
 @import 'blocks/dependencies_Breakup'; 
 
 /* Pages Includes
