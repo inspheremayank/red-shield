@@ -1,24 +1,240 @@
 /* cards section
 ================================ */
 .card {
+    &-wrap {
+        h3 {
+            @include margin(70 0 60);
+        }
+    }
     &__view {
         margin-bottom: 20px;
-        &-content {
+        &--content {
             position: relative;
             display: flex;
             flex-direction: column; 
-            height: 300px; 
+            height: 400px; 
             justify-content: flex-end; 
             overflow: hidden;
-            .mask {
+            figure {
+                @include size(#{$viewportSize});
                 position: absolute;
+                z-index: 10;
+                margin-bottom: 0;
                 top: 0;
                 left: 0;
-                @include size($viewportSize);
-                background-image: linear-gradient(rgba($zblack, 0), rgba($zblack, 0.9));
-                @include opacity(0.6);
+                display: block;
+            }
+            .social-icons {
+                display: none;
+            }
+            .content__section {
+                background-color: darken($white, 0.75%);
+                @include opacity(0.9);
                 z-index: 11; 
                 @include transition(all 0.3s ease);
+                min-height: 160px;
+                @include padding(20 15);
+                &-heading {
+                    @include font-size(18);
+                    overflow: hidden;
+                    max-height: 120px;
+                    font-family: $primary-fonts-bold;
+                    @include padding-bottom(5); 
+                    @media #{$media-ipadSmall} {
+                        @include font-size(22);
+                    }
+                }
+                &-description {
+                    @include font-size(16);
+                    max-height: 150px;
+                    overflow: hidden;
+                }
+                &-userInfo { 
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    &-image {
+                        @include size(30px);
+                        @include border-radius(50%);
+                        margin-right: 15px; 
+                    }
+                    &-content {
+                        width: calc(#{$viewportSize} - 35px);
+                        .designation {
+                            display: block;
+                            @include font-size(12);
+                            color: $grey;
+                            margin-top: 4px; 
+                        }
+                    }
+                    &-hide {
+                        display: none;
+                    }
+                }
+            }
+            .optionSet {
+                position: absolute;
+                top: 10px; 
+                left: 0;
+                width: 85px;
+                @include opacity(0);
+                @include transition(all 0.3s ease);
+                z-index: 999;
+                li {
+                    color: $white;
+                    @include padding(5 10);
+                    @include font-size(13);
+                    position: relative;
+                    background: rgba($zblack, 0.6) none repeat scroll 0 0; 
+                    @include transition(all 0.3s ease);
+                    + li {
+                        border-top: 1px solid rgba($zblack, 0.2);
+                    }
+                    span {  
+                        position: absolute;
+                        top: 50%;
+                        right: 0;
+                        @include translate(0,-50%);
+                        text-align: center;
+                        width: 30px;
+                        &.fa-spin {
+                            top: 6px !important;
+                        }
+                    }
+                    &:hover, &:focus {
+                        background: rgba($zblack, 1) none repeat scroll 0 0;
+                    }  
+                }
+            }
+        }
+        .without-image {
+            .card__view--content {
+                background-color: darken($white,2%);
+                figure {
+                    background-image: none !important;
+                }
+                .content__section {
+                    height: $viewportSize;
+                }
+            }
+        }
+        .video {
+            .card__view--content {
+                .video-play {
+                    @include size(33px);
+                    @include border-radius(50%);
+                    border: 2px solid darken($white,3%);
+                    position: relative;
+                    z-index: 99;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    &:after {
+                        content: '\f04b';
+                        font-family: $iconfont;
+                        @include font-size(16);
+                        line-height: 1;
+                        color: #f2f2f2;
+                        position: absolute;
+                        top: 50%;
+                        left: 54%;
+                        @include translate(-50%,-50%);
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+        .social {
+            &.video {
+                .card__view--content {
+                    .video-play {
+                        top: 60px;
+                    }
+                }
+            }
+            .card__view--content {
+                .content__section {
+                    &-userInfo-content .designation { 
+                        display: none;
+                    }
+                }
+                .social-icons {
+                    display: block;
+                    text-align: center;
+                    @include size(35px);
+                    @include border-radius(50%);
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    z-index: 11;
+                    &:before {
+                        content: '';
+                        font-family: $iconfont;
+                        @include font-size(20);
+                        line-height: 35px;
+                        color: #b7af98;
+                    }
+                }
+            }
+            &.twitter {
+                .card__view--content .social-icons {
+                    background-color: $zblack;
+                    &:before {
+                        content: '\f099';
+                    }
+                }
+            }
+            &.facebook {
+                .card__view--content .social-icons {
+                    background-color: $zblack;
+                    &:before {
+                        content: '\f09a';
+                    }
+                }
+            }
+            &.linkedin {
+                .card__view--content .social-icons {
+                    background-color: $zblack;
+                    &:before {
+                        content: '\f0e1';
+                    }
+                }
+            }
+            &.instagram {
+                .card__view--content .social-icons {
+                    background-color: $zblack;
+                    &:before {
+                        content: '\f16d';
+                    }
+                }
+            }
+            &.youtube {
+                .card__view--content .social-icons {
+                    background-color: $zblack;
+                    &:before {
+                        content: '\f167';
+                    }
+                }
+            }
+            &.vimeo {
+                .card__view--content .social-icons {
+                    background-color: $zblack;
+                    &:before {
+                        content: '\f27d';
+                    }
+                }
+            }
+        }
+        &--items {
+            display: block;
+            @include transition(all 0.3s ease);
+            &:hover, &:focus {
+                @include box-shadow(0 0 10px 2px rgba($zblack, 0.2));
+                .card__view--content {
+                    .optionSet {
+                        @include opacity(1); 
+                    }
+                }
             }
         }
     }
