@@ -1,19 +1,6 @@
 {% set network = _Network.getNetworkData() %}
 <!-- Begin about Banner section markup -->
-<div class="banner__section image-covered text-center" style="background-image: url('{{network.templatePath}}/static/images/test-image.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="banner__section-content d-flex align-items-center flex-column justify-content-center m-auto">
-                    <div class="play-icon"></div>
-                    <h1>The Salvation Army are there for those who need it most.</h1>
-                    <p>This is summary text or an excerpt of the post. It can be slightly longer or shorter if it needst to be.</p>
-                    <a href="javascript:;" class="button button--red upper button--radius">Donate</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{{ this.render('partials/_home-top-page.twig', {network:network, keyword: 'home_top_page'}) | raw }}
 <!-- End about Banner section markup -->
 <div class="clearfix"></div>
 <!-- Begin About CTA section -->
