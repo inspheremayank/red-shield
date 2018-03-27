@@ -1,0 +1,14 @@
+{% if _AppHelper.getApplicationEnv() == 'PROD'%}
+    <script type="text/javascript" src="{{network.templatePath}}/static/deploy/theme.min.js?rel=1516705378543"></script>
+{% else %}
+    <script type="text/javascript" src="{{network.templatePath}}static/plugins/jquery/js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{network.templatePath}}static/plugins/bootstrap/js/popper.min.js"></script>
+    <script type="text/javascript" src="{{network.templatePath}}static/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{network.templatePath}}static/plugins/slick/js/slick.min.js"></script>
+    <script type="text/javascript" src="{{network.templatePath}}static/plugins/fancybox/js/jquery.fancybox.js"></script>
+    <script type="text/javascript" src="{{network.templatePath}}static/plugins/wow/js/wow.js"></script>
+    <!-- End Core Plugins -->
+    <script type="text/javascript" src="{{network.templatePath}}static/js/app.js"></script>
+{% endif %}
+<script type="text/javascript" src="{{_AppHelper.getJsSdkPath()}}"></script>
+

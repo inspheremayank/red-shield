@@ -1,0 +1,100 @@
+{% set network = _Network.getNetworkData() %}
+{% set blog = _Blog.getBlog() %}
+
+{{ this.beginPage() }}
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <title>{{this.title | raw}}</title>
+        {{ Html.csrfMetaTags | raw }}
+
+        <!-- Google Tag Manager -->
+        {% if network.thirdPartyIntegrations['googleTagManager'] | length > 0 %}
+            {{network.thirdPartyIntegrations['googleTagManager']['script'] | raw}}
+        {% endif %}
+
+        <!-- Favicon Icon -->
+        {% set favicon = network.templatePath~'/static/images/favicon.svg' %}
+        {% if network.favMedia | length > 0 %}
+            {% set favicon = _Media.getMediaUrl(network.favMedia, 80, 80)%}
+        {% endif %}
+
+        {% if favicon != '' %}
+            <link rel="icon" type="image/png" href="{{favicon}}">
+        {% endif %}   
+        <!-- end favicon links -->
+
+        {% set isPage = 'content_box_page' in _Page.getBodyClass() %}
+
+        {% set bodyClass = _Page.getBodyClass() %}
+
+        {% if _AppHelper.getApplicationEnv() == 'PROD'%}
+            <link rel="stylesheet" href="{{network.templatePath}}/static/deploy/output.min.css?rel=1516705378566" type="text/css" media="all" />
+        {% else %}
+            <link rel="stylesheet" href="{{network.templatePath}}/static/css/vendors.css" />
+            <link rel="stylesheet" href="{{network.templatePath}}/static/css/default.css" />
+        {% endif %}      
+        {% if isPage %}
+            <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/assets/minimalist-basic/content-bootstrap.css" rel="stylesheet" type="text/css" />
+            <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/box/box.css" rel="stylesheet" type="text/css" />
+            <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
+            <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbox/contentbox.css" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" href="{{network.templatePath}}/static/css/contentbox-breakup.css?rel=1516705378566" type="text/css" media="all" />
+        {% endif %}
+        {% if blog.settings['GoogleAnalyticsID'] is defined and  blog.settings['GoogleAnalyticsID'] is not empty  %}
+            <!-- Google Analytics -->
+            <script>
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+                ga('create', '{{blog.settings['GoogleAnalyticsID']}}', 'auto');
+                ga('send', 'pageview');
+            </script>
+            <!-- End Google Analytics -->
+        {% endif %}
+        {{ this.head() }}
+    </head>
+    <body class="body {{bodyClass}}">
+        {{ this.beginBody() }}
+        {{ this.render('partials/_header.twig', {network:network, blog:blog}) | raw }}
+        
+        <div class="clearfix"></div>
+        {{ content | raw }}
+        <div class="clearfix"></div>
+        {{ this.render('partials/_footer.twig', {network:network, blog:blog}) | raw }}
+        <div class="clearfix"></div>
+        {{ this.render('partials/_javascript.twig', {network: network}) | raw }}
+
+        <div class="modal" role="dialog">
+            <div class="modal-dialog modal-extlg" role="document">
+                <div class="modal-content social-modal">
+                </div>
+            </div>
+        </div>
+
+        <div class="SwappingHelper" style="display:none">
+            <div style="width: 270px; height: 105px; padding: 3px; background-color: #FFF; max-width: 270px; max-height: 105px; overflow: hidden; z-index: 999 !important;">
+                <img class="article-image" src="{{network.placeHolder100x100}}" alt="image" style="width:97px; height: 97px; float: left;" />
+                <p class="article-text" style="width: 165px; float: left; padding-left: 3px;color: #394659;font-size: 14px; font-family: Droid Serif,serif; line-height: 20px; margin-top:0px;">Dummy text  </p>
+            </div>
+        </div>
+        {{ this.endBody() }}
+    </body>
+</html>
+{{ this.endPage() }}

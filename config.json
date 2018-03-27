@@ -1,0 +1,26 @@
+{
+    "compressHtml" : true,
+    "module": {
+        "debug": {
+            "enabled": false
+        },
+        "event": {
+            "enabled": false
+        },
+        "styling": {
+            "enabled": false
+        },
+        "page": {
+            "contentEditor": {
+                "enabled": true
+            }
+        },
+        "cta" : {
+            "keywords" : {
+                "home_top_page" : "This is the place id for the placement of Call to Action 1",
+                "home_middle_page" : "This is the place id for the placement of Call to Action 2",
+                "home_footer_page" : "This is the place id for the placement of Call to Action 3"
+            }
+        }
+    }
+}
