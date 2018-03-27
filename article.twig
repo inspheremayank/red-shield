@@ -1,0 +1,345 @@
+{% set network = _Network.getNetworkData() %}
+{{set(this,'title',(article.title))}}
+{% if article.meta.title is not empty %}
+   {{set(this,'title',(article.meta.title))}} 
+{% endif %}   
+
+{% set sliderClass = '' %}
+{% if article.media | length == 0 %}
+    {% set sliderClass = 'article__main-titleBand-video' %}
+{% else %}
+    {% for media in article.media %}
+        {% if media.type == 'video' %}
+            {% set sliderClass = 'article__main-titleBand-video' %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{{this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'})}}
+{% set publisher = {height: 60, width: 600, name: network.title, logo: ''} %}
+{% if network.logoMedia | length > 0 %}
+    {% set publisher = publisher|merge({logo:_Media.getMediaUrl(network.logoMedia, publisher.width, publisher.height, {'crop': 'lpad'} )})%}
+{% endif %}
+{{this.registerJs("HomeController.articleDetails();")}}
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": "{{article.url}}", 
+    "headline": "{{article.title}}",
+    "datePublished": "{{article.publishedDate}}",
+    "dateModified": "{{article.updatedAt}}",
+    "description": "{{article.content}}",
+    "author": {
+    "@type": "Person",
+    "name": "{{article.createdBy['displayName']}}"
+    }
+    {% if publisher.logo is not empty %},
+        "publisher": {
+        "@type": "Organization",
+        "name": "Monash University",
+        "logo": {
+        "@type": "ImageObject",
+        "url": "{{publisher.logo}}",
+        "width": {{publisher.width}},
+        "height": {{publisher.height}}
+        }
+        }
+    {% endif %}
+    {% if article.media | length > 0 %}
+        ,
+        {% set i = 1 %}            
+        "image":[ 
+        {% for media in article.media %} 
+            {
+            "@type": "ImageObject",
+            "url": "{{media.path}}",
+            "width": {{media.width}},
+            "height": {{media.height}}
+            }
+            {% if article.media | length > i %}
+                ,
+            {% endif %}
+            {% set i = i+1 %}
+        {% endfor %}
+        ]                
+    {% endif %}
+    }
+</script>
+
+{{this.registerJs("HomeController.article();")}}
+
+<div class="page__content-main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 px-0">
+                <div class="article__wrapper {{sliderClass}}">
+                    <div class="article__slide">
+                        {% if article.media | length > 0 %}
+                            {% set pos = 1 %}
+                            <div class="mainSlide slider">
+                                {% for media in article.media %}
+                                    {% if media.type == 'video' %} 
+                                        {% set mediaUrl = "" %}
+                                        {% if media.isSystemVideo %}
+                                            {% set mediaUrl = _Media.getMediaVideoUrl(media, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
+                                            {% set mediaVideoUrlOgg = _Media.getMediaVideoUrl(media, 0, 0,{resource_type: 'video', format: 'ogv'})  %}
+                                            {% set mediaVideoUrlWebm = _Media.getMediaVideoUrl(media, 0, 0,{resource_type: 'video', format: 'webm'})  %}
+                                            
+                                            <div class="item">
+                                                {% if media.fullVideoUrl is not empty %}
+                                                    {% set img = _Media.getMediaUrl(media, 1900, 1900, {'crop': 'limit'} ) %}
+                                                    <img src="{{img}}" class="img-fluid" alt="image" />
+                                                    <div id="play-icon-article-page{% if pos > 1%}-{{pos}}{% endif %}" class="playFancyVideo" data-fancybox href="{{media.fullVideoUrl}}"></div>
+                                                {% else %}
+                                                    <div id="play-icon-article-page{% if pos > 1%}-{{pos}}{% endif %}" class="playFancyVideo" data-fancybox data-src="#hidden-content">
+                                                        <video class="slick-video" style="display: none;" id="hidden-content" controls controlsList="nodownload">
+                                                            <source src="{{mediaUrl}}" type="video/mp4">
+                                                            <source src="{{mediaVideoUrlOgg}}" type="video/ogg">
+                                                            <source src="{{mediaVideoUrlWebm}}" type="video/webm">
+                                                        </video>
+                                                    </div>
+                                                    {% set img = _Media.getMediaUrl(media, 1900, 1900, {'crop': 'limit'} ) %}
+                                                    <img src="{{img}}" class="img-fluid" alt="image" />
+                                                    {% if pos == 1%}
+                                                        <video class="autoplay-video" autobuffer muted controlsList="nodownload" loop>
+                                                            <source src="{{mediaUrl}}" type="video/mp4">
+                                                            <source src="{{mediaVideoUrlOgg}}" type="video/ogg">
+                                                            <source src="{{mediaVideoUrlWebm}}" type="video/webm">
+                                                        </video>
+                                                        <div class="image-caption">{{media.caption}}</div>
+                                                    {% endif %}
+                                                {% endif %}                                                
+                                            </div>
+                                        {% else %}
+                                            {% if media.source == 'youtube' %}
+                                                {% set mediaUrl = "https://www.youtube.com/embed/" ~ media.videoId ~ "?rel=0"  %}
+                                            {% else %}
+                                                {% set mediaUrl = "http://player.vimeo.com/video/" ~ media.videoId  %}
+                                            {% endif %}
+                                            <div class="item">
+                                                {% set img = _Media.getMediaUrl(media, 1900, 1900, {'crop': 'limit'} ) %}
+                                                <div id="play-icon-article-page{% if pos > 1%}-{{pos}}{% endif %}" class="playFancyVideo" data-fancybox href="{{mediaUrl}}"></div>
+                                                <img src="{{img}}" class="img-fluid" alt="image" />
+                                                <div class="image-caption">{{media.caption}}</div>
+                                            </div>
+                                        {% endif %}
+                                    {% else %}
+                                        {% set img = _Media.getMediaUrl(media, 1900, 1900, {'crop': 'limit'} ) %}
+                                        <div class="item">
+                                            <img src="{{img}}" class="img-fluid" alt="image" />
+                                            <div class="image-caption">{{media.caption}}</div>
+                                        </div>
+                                    {% endif %}
+                                    {% set pos = pos+1 %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="article__main">
+                        <div class="article__main-titleBand">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="article__main-titleBand-content">
+                                            <div class="article__userInfo">
+                                                <div class="article__userInfo-content text-center">
+                                                    <div class="article__userInfo-date">{% if article.additionalInfo['podcast_article'] is defined and article.additionalInfo['podcast_article'] == 'yes' %}<span class="podcast-view"><span class="icon fa fa-microphone"></span>Podcast</span>{% endif %} <span>Published {{article.publishedDate}}</span></div>
+                                                    {% if _User.isGuest() %}
+                                                        <a class="article__userInfo-button button button-blue republishBtn" href="javascipt:;">Republish</a>
+                                                    {% endif %}
+                                                    {% if article.userHasEditArticleAccess is defined and article.userHasEditArticleAccess == 1 %}
+                                                        <a class="article__userInfo-button button button-bordered grey" href="{{article.editUrl}}" target="_blank">Edit article</a>
+                                                    {% endif %}
+                                                    <h1 class="article__userInfo-title">{{article.title}}</h1>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-md-10 m-auto">
+                                                    <div class="article__main-authorSlide">
+                                                        <div class="author-carousel regular slider">
+                                                            <div class="article__main-authorSlide-content">
+                                                                {% set userBlogs = _Blog.get({'title': article.createdBy['displayName']})%}
+                                                                {% set profileLink = 'javascript:;' %}
+                                                                {% set linkClass = 'no-link' %}
+                                                                {% if userBlogs['url'] is defined and userBlogs['url'] is not empty %}
+                                                                    {% set profileLink = userBlogs['url'] %}
+                                                                    {% set linkClass = '' %}
+                                                                {% endif %}
+                                                                <a href="{{profileLink}}" class="{{linkClass}}">
+                                                                    <figure class="image-covered rounded-circle" style="background-image:url('{{_Media.getMediaUrl(article.createdBy['media'], 200, 200, {crop:'thumb', radius: 'max', gravity:'face',type:'user'})}}');"></figure>
+                                                                        {% set userName = article.createdBy['displayName'] %}
+                                                                    <div class="title">{{userName | raw}}</div>
+                                                                    {% set userMeta = _MetaInfo.getMetaData('user', article.createdBy['guid'])%}
+                                                                    <div class="designation">{{userMeta.short_position}}</div>
+                                                                </a>
+                                                            </div>
+                                                            {% if article.createdBy['coauthors'] | length > 0%}
+                                                                {% for author in article.createdBy['coauthors'] %}
+                                                                    {% set userBlogs = _Blog.get({'title': author['displayName']})%}
+                                                                    {% set profileLink = 'javascript:;' %}
+                                                                    {% set linkClass = 'no-link' %}
+                                                                    {% if userBlogs['url'] is defined and userBlogs['url'] is not empty %}
+                                                                        {% set profileLink = userBlogs['url'] %}
+                                                                        {% set linkClass = '' %}
+                                                                    {% endif %}
+                                                                    <div class="article__main-authorSlide-content">
+                                                                        <a href="{{profileLink}}" class="{{linkClass}}">
+                                                                            <figure class="image-covered rounded-circle" style="background-image:url('{{_Media.getMediaUrl(author['media'], 200, 200, {crop:'thumb', radius: 'max', gravity:'face',type:'user'})}}');"></figure>
+                                                                            <div class="title">{{author['displayName']}}</div>
+                                                                            {% set userMeta = _MetaInfo.getMetaData('user', author['guid'])%}
+                                                                            <div class="designation">{{userMeta.short_position}}</div>
+                                                                        </a>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="article__main-wrapper">
+                                        <div class="row">
+                                            <div class="col-12 col-md-1">
+                                                <div class="article__main-social" id="socialFix">
+                                                    <ul>
+                                                        {% set subject = article.title~' '~_Network.getNetworkTitle()%}
+                                                        {% set body = 'I thought you would find this article interesting.'|url_encode%}
+                                                        {% set body = body ~'%0D%0A%0D%0A' ~ article.url%}
+                                                        <li>
+                                                            <a href="mailto:?subject={{subject}}&body={{body}}" target="_blank">
+                                                                <span class="customIcons customIcons-envelope-square customIcons-envelope-squareSmall"></span>
+                                                            </a>
+
+                                                        </li>
+                                                        <li>
+                                                            <a href="http://www.facebook.com/sharer/sharer.php?u={{article.url}}" target="_blank">
+                                                                <span class="customIcons customIcons-facebook-square customIcons-facebook-squareSmall"></span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="http://twitter.com/intent/tweet?status={{article.url}}" target="_blank">
+                                                                <span class="customIcons customIcons-twitter-square customIcons-twitter-squareSmall"></span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="https://www.linkedin.com/cws/share?url={{article.url}}" target="_blank">
+                                                                <span class="customIcons customIcons-linkedin customIcons-linkedin-squareSmall"></span>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:window.print()">
+                                                                <span class="customIcons customIcons-printSmall"></span></a>
+                                                        </li>                                            
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-11 col-md-10 m-auto">
+                                                <div class="article__main-content articleContent" data-content-url="{{article.url}}">{{article.content | _resizeImages({quality: 75}) | raw}}</div>
+                                                <div class="clearfix"></div>
+                                                {% set keywords = article.keywords | split(',') %}
+                                                {% if keywords | length > 0 %}
+                                                    <div class="category__wrapper-content-tags mt-0">
+                                                        <ul>
+                                                            {% for keyword in keywords %}
+                                                                {% if keyword is defined and keyword is not empty %}
+                                                                    <li><a href="{{_Blog.getUrl()}}/search?s={{keyword}}">{{keyword}}</a></li>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                {% endif %}
+                                                <div class="article__main-author-wrapper">
+                                                    <div class="section__head with-border">
+                                                        <h3>Featuring</h3>
+                                                    </div>
+                                                    <div class="author__listing">
+                                                        <ul>
+                                                            {% set userBlogs = _Blog.get({'title': article.createdBy['displayName']})%}
+                                                            {% set profileLink = 'javascript:;' %}
+                                                            {% set linkClass = 'no-link' %}
+                                                            {% if userBlogs['url'] is defined and userBlogs['url'] is not empty %}
+                                                                {% set profileLink = userBlogs['url'] %}
+                                                                {% set linkClass = '' %}
+                                                            {% endif %}
+                                                            {% set profileImage = _Media.getMediaUrl(article.createdBy['media'], 200, 200, {crop:'thumb', gravity:'face',type:'user'}) %}
+                                                            {% if article.createdBy['username'] == 'monashuniversity' %}
+                                                                {% set profileImage = network.templatePath~'/static/images/monash-university-icon.jpg' %}
+                                                            {% endif %}
+                                                            <li>
+                                                                <a href="{{profileLink}}" class="{{linkClass}}">
+                                                                    <figure>
+                                                                        <img src="{{profileImage}}" class="img-fluid" alt="image" />
+                                                                    </figure>
+                                                                    {% set userMeta = _MetaInfo.getMetaData('user', article.createdBy['guid'])%}
+                                                                    <div class="author__listing-content">
+                                                                        <h4>{{article.createdBy['displayName']}}</h4>
+                                                                        <h5>{{userMeta.long_position}}</h5>
+                                                                        <p>{{article.createdBy['bio'] | raw}}</p>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                            {% if article.createdBy['coauthors'] | length > 0%}
+                                                                {% for author in article.createdBy['coauthors'] %}
+                                                                    {% set userBlogs = _Blog.get({'title': author['displayName']})%}
+                                                                    {% set profileLink = 'javascript:;' %}
+                                                                    {% set linkClass = 'no-link' %}
+                                                                    {% if userBlogs['url'] is defined and userBlogs['url'] is not empty %}
+                                                                        {% set profileLink = userBlogs['url'] %}
+                                                                        {% set linkClass = '' %}
+                                                                    {% endif %}
+                                                                    {% set profileImage = _Media.getMediaUrl(author['media'], 200, 200, {crop:'thumb', gravity:'face',type:'user'})%}
+                                                                    {% if author['username'] == 'monashuniversity' %}
+                                                                        {% set profileImage = network.templatePath~'/static/images/monash-uni.jpg' %}
+                                                                    {% endif %}
+                                                                    <li>
+                                                                        <a href="{{profileLink}}" class="{{linkClass}}">
+                                                                            <figure>
+                                                                                <img src="{{profileImage}}" class="img-fluid" alt="image" />
+                                                                            </figure>
+                                                                            <div class="author__listing-content">
+                                                                                <h4>{{author['displayName']}}</h4>
+                                                                                {% set userMeta = _MetaInfo.getMetaData('user', author['guid'])%}
+                                                                                <h5>{{userMeta.long_position}}</h5>
+                                                                                <p>{{author['bio'] | raw}}</p>
+                                                                            </div>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{this.render("partials/article/_popular_articles.twig", {articleId: article.id, network: network}) | raw }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 px-0">
+                                    {{ this.render('partials/_cta-text.twig', {network: network, keyword: 'article_page', containerClass: 'noMargin'}) | raw}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,6 +18,9 @@
         "cta" : {
             "keywords" : {
                 "home_top_page" : "This is the place id for the placement of Call to Action 1",
+                "red_shield_appeal" : "This is the CTA id for Red Shield Appeal",
+                "subscribe" : "This is the CTA id for Subscribe",
+                "contribute_red_shield" : "This is the CTA id for contribute_red_shield",
                 "home_middle_page" : "This is the place id for the placement of Call to Action 2",
                 "home_footer_page" : "This is the place id for the placement of Call to Action 3"
             }

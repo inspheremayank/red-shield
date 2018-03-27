@@ -1,25 +1,6 @@
 <footer class="footer">
     <!-- Begin Footer CTA section -->
-    <div class="cta-wrap cta-wrap__action blue-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="cta-wrap__main">
-                        <div class="cta-wrap__main--logo">
-                            <img class="img-fluid" src="{{network.templatePath}}/static/images/logos/salvation-logo.svg" alt="CTA logo" />
-                        </div>
-                        <div class="cta-wrap__main--title"></div>
-                        <div class="cta-wrap__main--description">Contribute to the appeal and change lives now. Your donation goes straight to those who need it most.</div>
-                        <div class="cta-wrap__main--buttons">
-                            <a class="button button--radius button--black" href="javascript:;">FUNDRAISE</a>
-                            <a class="button button--radius button--red" href="javascript:;">DONATE</a>
-                            <a class="button button--radius button--lightBlue" href="javascript:;">VOLUNTEER</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{ this.render('./../../partials/_contribute_red_shield.twig', {network:network, keyword: 'contribute_red_shield'}) | raw }}    
     <!-- End Footer CTA section -->
 
     <!-- Begin footer main section -->

@@ -17,17 +17,17 @@
                     background: none repeat scroll 0 0
                 } 
             ")}}
-            <div class="banner__section image-covered text-center cta_block_{{cta.id}}" {% if ctaBackgroundImage is not empty or cta.backgroundColor is not empty %} style="{{ (ctaBackgroundImage is not empty) ? 'background-image: url('~ctaBackgroundImage~');' : ''}}{{ (cta.backgroundColor is not empty) ? 'background-color: '~cta.backgroundColor~';' : ''}}"{% endif %}>
+            <div class="clearfix"></div>
+            <!-- Begin About CTA section -->
+            <div class="cta-wrap cta-wrap__about cta_block_{{cta.id}}"{% if ctaBackgroundImage is not empty or cta.backgroundColor is not empty %} style="{{ (ctaBackgroundImage is not empty) ? 'background-image: url('~ctaBackgroundImage~');' : ''}}{{ (cta.backgroundColor is not empty) ? 'background-color: '~cta.backgroundColor~';' : ''}}"{% endif %}>
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <div class="banner__section-content d-flex align-items-center flex-column justify-content-center m-auto">
-                                <div class="play-icon"></div>
-                                <h1>{{cta.title |raw}}</h1>     
-                                <p>{{cta.description |raw}}</p>
-                                {% if cta.button.text is defined and cta.button.text is not empty %}
-                                    <a href="{{cta.button['url']}}" target="_blank" class="button button--red upper button--radius">{{cta.button['text'] |raw |upper}}</a>
-                                {% endif %}     
+                            <div class="cta-wrap__main text-center">
+                                <div class="cta-wrap__main--title">{{cta.title |raw}}</div>
+                                <div class="cta-wrap__main--description">
+                                    {{cta.description |raw}}
+                                </div>
                             </div>
                         </div>
                     </div>
