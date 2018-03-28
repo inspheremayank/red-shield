@@ -1385,7 +1385,8 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
       .card__view-full.single .card__view--content .content__section-heading {
         color: #000000;
         font-size: 3.125rem;
-        line-height: 3.75rem; }
+        line-height: 3.75rem;
+        max-height: 150px; }
       .card__view-full.single .card__view--content .content__section-description {
         color: #505050;
         margin-top: 1.25rem;

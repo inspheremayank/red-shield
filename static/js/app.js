@@ -10,8 +10,25 @@ $.event.add(window, "scroll", function () {
         $('.header').removeClass('header__fixed');
     }
 });
+
 $('.banner__section.video .play-icon').on('click', function() {
     $('[data-fancybox]').fancybox();
+});
+
+// Begin Card truncate
+$(document).ready(function () {
+    $('.content__section-heading').ellipsis({
+        responsive: true,
+        lines: 2
+    });
+    $('.text__dotdot').ellipsis({
+        responsive: true,
+        lines: 3
+    });
+    $('.card__view.single .text__dotdot').ellipsis({
+        responsive: true,
+        lines: 5
+    });
 });
 /***********************************/
 /* Initalise WOW Js */

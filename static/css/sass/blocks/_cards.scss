@@ -287,7 +287,8 @@
                         &-heading {
                             color: $zblack;
                             @extend .font-light;
-                            @include font-size(50); 
+                            @include font-size(50);
+                            max-height: 150px;
                         }
                         &-description {
                             color: $black;
