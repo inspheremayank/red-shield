@@ -696,7 +696,9 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
     height: 100vh;
     min-height: 500px; }
     .banner__section-content .play-icon {
-      margin-top: 2.5rem; }
+      margin-top: 2.5rem;
+      display: none;
+      cursor: pointer; }
       .banner__section-content .play-icon:before {
         content: '\f144';
         font-family: "FontAwesome";
@@ -726,6 +728,8 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
       @media screen and (max-width: 767px) {
         .banner__section-content .button {
           margin-top: 40px; } }
+  .banner__section.video .banner__section-content .play-icon {
+    display: block; }
 
 /* table section
 ================================ */

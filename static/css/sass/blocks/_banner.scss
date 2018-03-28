@@ -22,6 +22,8 @@
         min-height: 500px;
         .play-icon {
             @include margin-top(40);
+            display: none;
+            cursor: pointer;
             &:before {
                 content: '\f144';
                 font-family: $iconfont;
@@ -51,6 +53,13 @@
             margin-top: 40px;
             @media #{$media-ipadSmall} {
                 margin-top: 40px;
+            }
+        }
+    }
+    &.video {
+        .banner__section-content {
+            .play-icon {
+                display: block;
             }
         }
     }

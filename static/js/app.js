@@ -10,6 +10,9 @@ $.event.add(window, "scroll", function () {
         $('.header').removeClass('header__fixed');
     }
 });
+$('.banner__section.video .play-icon').on('click', function() {
+    $('[data-fancybox]').fancybox();
+});
 /***********************************/
 /* Initalise WOW Js */
 /**********************************/
