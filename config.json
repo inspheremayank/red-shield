@@ -24,6 +24,18 @@
                 "home_middle_page" : "This is the place id for the placement of Call to Action 2",
                 "home_footer_page" : "This is the place id for the placement of Call to Action 3"
             }
+        },
+        "cta": {
+            "extendedAttributes": [
+                {
+                    "label" : "External Video Url",
+                    "name": "cta_video_url",
+                    "type": "inputbox",
+                    "inputType": "url",
+                    "placeholder": "Enter external video Url"
+                }
+            ]
         }
+        
     }
 }

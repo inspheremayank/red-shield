@@ -1,8 +1,9 @@
 {% set ctaBackgroundImage = "" %}
+{% set ctaVideoUrl = "" %}
 {% if keyword is defined and keyword is not empty %}
     {% set cta = _CallToAction.getKeywordBasedCTA(keyword)%}
     {% if cta is defined and cta|length > 0 %}
-        {% if cta.id is defined and cta.id is not empty %}            
+        {% if cta.id is defined and cta.id is not empty %}
             {% if(cta.media['id'] is defined and cta.media['id'] is not empty) %}
                 {% set ctaBackgroundImage = _Media.getMediaUrl(cta.media,0,0,{'crop': 'fill'}) %}
             {% endif %}
@@ -17,12 +18,20 @@
                     background: none repeat scroll 0 0
                 } 
             ")}}
-            <div class="banner__section image-covered text-center video cta_block_{{cta.id}}" {% if ctaBackgroundImage is not empty or cta.backgroundColor is not empty %} style="{{ (ctaBackgroundImage is not empty) ? 'background-image: url('~ctaBackgroundImage~');' : ''}}{{ (cta.backgroundColor is not empty) ? 'background-color: '~cta.backgroundColor~';' : ''}}"{% endif %}>
+            {% set ctaWithMeta = _CallToAction.get({keywords: keyword, includeMetaInfo: 1})%}
+            {% if ctaWithMeta is defined and ctaWithMeta|length > 0 %}
+                {% if ctaWithMeta.additionalInfo is defined and ctaWithMeta.additionalInfo|length > 0 %}
+                    {% set ctaVideoUrl =ctaWithMeta.additionalInfo.cta_video_url %}
+                {% endif%}
+            {% endif%}
+            <div class="banner__section image-covered text-center {% if ctaVideoUrl is defined and ctaVideoUrl is not empty %}{{'video'}}{% endif%} cta_block_{{cta.id}}" {% if ctaBackgroundImage is not empty or cta.backgroundColor is not empty %} style="{{ (ctaBackgroundImage is not empty) ? 'background-image: url('~ctaBackgroundImage~');' : ''}}{{ (cta.backgroundColor is not empty) ? 'background-color: '~cta.backgroundColor~';' : ''}}"{% endif %}>
                 <div class="container">
                     <div class="row">
                         <div class="col">
                             <div class="banner__section-content d-flex align-items-center flex-column justify-content-center m-auto">
-                                <a data-fancybox href="https://www.youtube.com/watch?v=_sI_Ps7JSEk" class="play-icon"></a>
+                                {% if ctaVideoUrl is defined and ctaVideoUrl is not empty %}
+                                    <a data-fancybox href="{{ctaVideoUrl}}" class="play-icon"></a>
+                                {% endif%}
                                 <h1>{{cta.title |raw}}</h1>     
                                 <p>{{cta.description |raw}}</p>
                                 {% if cta.button.text is defined and cta.button.text is not empty %}
