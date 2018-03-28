@@ -30,6 +30,16 @@ $(document).ready(function () {
         lines: 5
     });
 });
+
+var slider = $('.mainSlide').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 5000,
+    infinite: true,
+    arrows: false,
+    dots: true
+});
 /***********************************/
 /* Initalise WOW Js */
 /**********************************/
