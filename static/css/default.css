@@ -669,7 +669,8 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
 .banner__section {
   height: 100vh;
   min-height: 500px;
-  position: relative; }
+  position: relative;
+  background-color: #11466b; }
   .banner__section:after {
     content: '';
     z-index: 99;

@@ -4,6 +4,7 @@
     height: 100vh; 
     min-height: 500px;
     position: relative;
+    background-color: $blue;
     &:after {
         content: '';
         z-index: 99;
