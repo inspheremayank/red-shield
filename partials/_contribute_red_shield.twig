@@ -32,7 +32,7 @@
                                 <div class="cta-wrap__main--buttons">
                                     <a class="button button--radius button--black" href="javascript:;">FUNDRAISE</a>
                                     {% if cta.button.text is defined and cta.button.text is not empty %}
-                                        <a class="button button--radius button--red" href="{{cta.button['url']}}">{{cta.button['text'] |raw }}</a>
+                                        <a class="button button--radius button--red" href="{{cta.button['url']}}">{{cta.button['text'] |raw | upper}}</a>
                                     {% endif %}
                                     <a class="button button--radius button--lightBlue" href="javascript:;">VOLUNTEER</a>
                                 </div>
