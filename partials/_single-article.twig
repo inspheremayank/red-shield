@@ -1,37 +1,152 @@
-<div class="card__view {{class}}">
-    <div class=""><!-- Make these classes dynamic 'social twitter/linkedin/vimeo/youtube/instagram' 'video' 'without-image' -->
-        <a href="javascript:;" class="card__view--items">
-            <div class="card__view--content">
-                <div class="mask"></div>
-                {% set bgImg = network.templatePath~'/static/images/test-image.jpg' %}
-                <figure class="image-covered" style="background-image: url({{bgImg}})"></figure>
-                <div class="optionSet">
-                    <ul>
-                        <li>Hide <span class="fa fa-eye-slash"></span></li>
-                        <li>Pin <span class="fa fa-map-marker"></span></li>
-                        <li>Edit <span class="fa fa-cog"></span></li>
-                    </ul>
-                </div>
-                <div class="social-icons"></div>
-                <div class="video-play"></div>
-                <div class="content__section-block">
-                    <div class="content__section">
-                        <div class="content__section-userInfo"> 
-                            <div class="content__section-userInfo-image image-covered" style="background-image: url({{bgImg}})"></div> 
-                            <div class="content__section-userInfo-content"> 
-                                <span>Rebekah Brown</span> 
-                                <span class="designation">Director of Monash Sustainable Development Institute</span> 
-                            </div> 
+{#{{_AppHelper.printArray(article)}}#}
+{% if article.articleId > 0 %}
+    {% set bgImage = "" %}
+    {% set videoClass = '' %}
+    {% set mediaVideoUrl = '' %}
+    {% set cardImageClass = 'without-image' %}
+    {% if article.featuredMedia | length > 0 and article.featuredMedia.id is not empty %}
+        {% set cardImageClass = '' %}
+        {% set articleImg = _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': crop, 'gravity': gravity, 'quality': '75'} ) %}
+        {% set bgImage = "background-image: url('"~articleImg~"');" %}
+        {% if article.featuredMedia['type'] == 'video' %}
+            {% set videoClass = 'video' %}
+        {% endif %}
+    {% endif %}
+
+    {% if not blogGuid is defined %}
+        {% set blogGuid = article.blog.guid %}
+    {% endif %}
+    <div class="card__view {{class}}">
+        <div class="{{cardImageClass}} {{videoClass}} swap" data-blog-guid="{{blogGuid}}" data-id="{{article.articleId}}" data-position="{{position}}" data-social="0" data-article-image="{{articleImg}}" data-article-text="{{Helper.htmlToText(article.title, 100) | raw}}"><!-- Make these classes dynamic 'social twitter/linkedin/vimeo/youtube/instagram' 'video' 'without-image' -->
+            <a href="{{article.url}}" class="card__view--items">
+                <div class="card__view--content">
+                    <div class="mask"></div>
+                    {% set bgImg = network.templatePath~'/static/images/test-image.jpg' %}
+                    {% if article.hasMedia == 'TRUE' %}
+                        <figure class="image-covered" style="{{bgImage}}"></figure>
+                        {% endif %}
+                        {% if article.userHasBlogAccess == '1' %}
+                        <div class="optionSet">
+                            <ul>
+                                <li>Hide <span class="fa fa-eye-slash"></span></li>
+
+                                {% set pinTitle = 'Pin Article' %}
+                                {% set pinTxt = 'PIN' %}
+                                {% set pinCls = '' %}
+                                {% if article.isPinned == 1 %}
+                                    {% set pinTitle = 'Un-Pin Article' %}
+                                    {% set pinTxt = 'UN-PIN' %}
+                                    {% set pinCls = 'selected' %}
+                                {% endif %}
+                                <li class=" {{pinCls}}">{{pinTxt}} <span class="fa fa-map-marker"></span></li>
+                                    {% if article.userHasEditArticleAccess == '1' %}
+                                    <li onclick="window.location = '{{article.editUrl}}';
+                                    return false;">Edit <span class="fa fa-cog"></span></li>
+                                    {% endif %}
+                            </ul>
                         </div>
-                        <div class="clearfix"></div>
-                        <h2 class="content__section-heading">With Image card</h2>
-                        <div class="content__section-description text__dotdot">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
-                        <div class="content__section-button">
-                            <button href="javascript:;" class="button button--radius button--red">Learn more</button>
+                    {% endif %}
+                    <div class="social-icons"></div>
+                    <div class="video-play"></div>
+                    <div class="content__section-block">
+                        <div class="content__section">
+                            <div class="content__section-userInfo"> 
+                                {% set profileImage = _Media.getMediaUrl(article.createdBy['media'], 23, 23, {radius: 'max', gravity: 'face', 'crop': 'thumb', 'type' : 'user'}) %}      
+                                <div class="content__section-userInfo-image image-covered" style="background-image: url({{profileImage}})"></div> 
+                                <div class="content__section-userInfo-content"> 
+                                    <span>{{article.createdBy.displayName | raw}}</span> 
+                                    <span class="designation">{{article.createdBy.bio | raw}}</span> 
+                                </div> 
+                            </div>
+                            <div class="clearfix"></div>
+                            {% set articleTitle = article.title| raw %}
+                            {% if article.title|length > 80 %}
+                                {% set articleTitle = article.title [:80] ~ '...' | raw %}
+                            {% endif %}
+                            {% set articleExcerpt = article.excerpt| raw %}
+                            {% if article.excerpt|length > 150 %}
+                                {% set articleExcerpt = article.excerpt[:150] ~ '...' | raw %}
+                            {% endif %}
+                            <h2 class="content__section-heading">{{articleTitle}}</h2>
+                            <div class="content__section-description text__dotdot">{{articleExcerpt}}</div>
+                            <div class="content__section-button">
+                                <button class="button button--radius button--red">Learn more</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
-</div>
+{% else %}
+    {% set social = article.social %}
+    {% set mediaClass = 'without-image' %}
+    {% set bgImgSocial = '' %}
+    {% if social.hasMedia %}
+        {% set mediaClass = '' %}
+        {% set bgImgSocial = "background-image: url('"~social.media['path']~"');" %}
+    {% endif %}
+    <div class="card__view {{class}}">
+        <div class="{{cardImageClass}} {{videoClass}} swap" data-blog-guid="{{blogGuid}}" data-id="{{article.articleId}}" data-position="{{position}}" data-social="0" data-article-image="{{articleImg}}" data-article-text="{{Helper.htmlToText(article.title, 100) | raw}}">
+            <!-- Make these classes dynamic 'social twitter/linkedin/vimeo/youtube/instagram' 'video' 'without-image' -->
+            <a href="{{article.url}}" class="card__view--items">
+                <div class="card__view--content">
+                    <div class="mask"></div>
+                    {% set bgImg = network.templatePath~'/static/images/test-image.jpg' %}
+                    {% if article.hasMedia == 'TRUE' %}
+                        <figure class="image-covered" style="{{bgImage}}"></figure>
+                        {% endif %}
+                        {% if article.userHasBlogAccess == '1' %}
+                        <div class="optionSet">
+                            <ul>
+                                <li>Hide <span class="fa fa-eye-slash"></span></li>
+
+                                {% set pinTitle = 'Pin Article' %}
+                                {% set pinTxt = 'PIN' %}
+                                {% set pinCls = '' %}
+                                {% if article.isPinned == 1 %}
+                                    {% set pinTitle = 'Un-Pin Article' %}
+                                    {% set pinTxt = 'UN-PIN' %}
+                                    {% set pinCls = 'selected' %}
+                                {% endif %}
+                                <li class=" {{pinCls}}">{{pinTxt}} <span class="fa fa-map-marker"></span></li>
+                                    {% if article.userHasEditArticleAccess == '1' %}
+                                    <li onclick="window.location = '{{article.editUrl}}';
+                                    return false;">Edit <span class="fa fa-cog"></span></li>
+                                    {% endif %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <div class="social-icons"></div>
+                    <div class="video-play"></div>
+                    <div class="content__section-block">
+                        <div class="content__section">
+                            <div class="content__section-userInfo"> 
+                                {% set profileImage = _Media.getMediaUrl(article.createdBy['media'], 23, 23, {radius: 'max', gravity: 'face', 'crop': 'thumb', 'type' : 'user'}) %}      
+                                <div class="content__section-userInfo-image image-covered" style="background-image: url({{profileImage}})"></div> 
+                                <div class="content__section-userInfo-content"> 
+                                    <span>{{article.createdBy.displayName | raw}}</span> 
+                                    <span class="designation">{{article.createdBy.bio | raw}}</span> 
+                                </div> 
+                            </div>
+                            <div class="clearfix"></div>
+                            {% set articleTitle = article.title| raw %}
+                            {% if article.title|length > 80 %}
+                                {% set articleTitle = article.title [:80] ~ '...' | raw %}
+                            {% endif %}
+                            {% set articleExcerpt = article.excerpt| raw %}
+                            {% if article.excerpt|length > 150 %}
+                                {% set articleExcerpt = article.excerpt[:150] ~ '...' | raw %}
+                            {% endif %}
+                            <h2 class="content__section-heading">{{articleTitle}}</h2>
+                            <div class="content__section-description text__dotdot">{{articleExcerpt}}</div>
+                            <div class="content__section-button">
+                                <button class="button button--radius button--red">Learn more</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+{% endif %}
