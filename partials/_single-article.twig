@@ -1,226 +1,37 @@
-{% if article.articleId > 0 %}
-    {% set imgWidth = 355 %}
-    {% set imgHeight = 405 %}
-    {% if 'card__view-full' in class %}
-        {% set imgWidth = 1900 %}
-        {% set imgHeight = 500 %}
-    {% endif %}
-    {% set gravity = 'faces' %}
-    {% set crop = 'fill' %}
-    {% if 'card__view-twoThird' in class %}
-        {% set gravity = 'face' %}
-        {% set imgWidth = 740 %}
-        {% set imgHeight = 410 %}
-    {% endif %}
-    {% if 'card__view-quarter' in class %}
-        {% set gravity = 'face' %}
-        {% set imgWidth = 260 %}
-        {% set imgHeight = 410 %}
-    {% endif %}
-    {% if 'card__view-full single' in class %}
-        {% set gravity = 'center' %}
-        {% set crop = 'limit' %}
-        {% set imgWidth = 1900 %}
-        {% set imgHeight = 1900 %}
-    {% endif %}
-    {% set bgImage = "" %}
-    {% set videoClass = '' %}
-    {% set mediaVideoUrl = '' %}
-    {% set cardImageClass = 'withoutImage' %}
-    {% if article.featuredMedia | length > 0 and article.featuredMedia.id is not empty %}
-        {% set cardImageClass = '' %}
-        {% set articleImg = _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': crop, 'gravity': gravity, 'quality': '75'} ) %}
-        {% set bgImage = "background-image: url('"~articleImg~"');" %}
-        {% if article.featuredMedia['type'] == 'video' %}
-            {% set videoClass = 'video' %}
-        {% endif %}
-    {% endif %}
-    
-    {% if not blogGuid is defined %}
-        {% set blogGuid = article.blog.guid %}
-    {% endif %}
-    
-    <div itemscope itemtype="http://schema.org/NewsArticle" class="card__view {{class}}" >
-        <div class="{{cardImageClass}} {{videoClass}} feature-SlideUp swap" data-blog-guid="{{blogGuid}}" data-id="{{article.articleId}}" data-position="{{position}}" data-social="0" data-article-image="{{articleImg}}" data-article-text="{{Helper.htmlToText(article.title, 100) | raw}}">
-            <a href="{{article.url}}">
-                <meta itemprop="url" content="{{article.absoluteUrl}}" />
-                <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{article.absoluteUrl}}"/>
-                {% if article.featuredMedia['media'] is defined and  article.featuredMedia['media'] | length > 0%}
-                    <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                        <meta itemprop="url" content="{{article.featuredMedia['media']['url']}}"/>
-                        <meta itemprop="width" content="{{article.featuredMedia['media']['width']}}"/>
-                        <meta itemprop="height" content="{{article.featuredMedia['media']['height']}}"/>
-                    </div>
-                {% endif %}
-                {% if article.publisher['url'] is not empty %}
-                    <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                        <meta itemprop="name" content="Monash University"/>
-                        <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                            <meta itemprop="url" content="{{article.publisher['url']}}"/>
-                            <meta itemprop="width" content="{{article.publisher['width']}}"/>
-                            <meta itemprop="height" content="{{article.publisher['height']}}"/>
-                        </div>
-                    </div>
-                {% endif %}
-                {% set metaPublishDate = _AppHelper.getDefaultTimezoneDateTime(article.metaPublishDate) %}
-                {% set metaUpdateDate = _AppHelper.getDefaultTimezoneDateTime(article.metaUpdateDate) %}
-                <meta itemprop="datePublished" content="{{_AppHelper.getDateTimeBasedOnTimezone(metaPublishDate,'META')}}"/>
-                <meta itemprop="dateModified" content="{{_AppHelper.getDateTimeBasedOnTimezone(metaUpdateDate,'META')}}"/>
-                
-                <div  class="card__view-content">
-                    <div class="mask"></div>
-                    <figure class="image-covered {% if hasSystemVideo == 1%}system__videoShow{%endif%}" style="{{bgImage}}"></figure>
-                    {% set hasSystemVideo = 0 %}
-                    {% if article.featuredMedia['source'] is not empty %}
-                        {% if article.featuredMedia['source'] == 'system' %}
-                            {% set hasSystemVideo = 1 %}
-                           {% set mediaVideoUrl = _Media.getMediaVideoUrl(article.featuredMedia, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
-                           {% set mediaVideoUrlOgg = _Media.getMediaVideoUrl(article.featuredMedia, 0, 0,{resource_type: 'video', format: 'ogv'})  %}
-                           {% set mediaVideoUrlWebm = _Media.getMediaVideoUrl(article.featuredMedia, 0, 0,{resource_type: 'video', format: 'webm'})  %}
-                           {% set posterImg = _Media.getMediaUrl(article.featuredMedia, 1500, 1500, {'crop': 'limit'} ) %}
-                            <video class="autoplay-video" autobuffer muted controlsList="nodownload" poster="{{posterImg}}" {% if 'card__view-full single' in class %} loop {% endif %}>
-                                <source src="{{mediaVideoUrl}}" type="video/mp4">
-                                <source src="{{mediaVideoUrlOgg}}" type="video/ogg">
-                                <source src="{{mediaVideoUrlWebm}}" type="video/webm">
-                            </video>
-                        {% endif %}
-                    {% endif %}
-                    {% if article.additionalInfo['podcast_article'] is defined and article.additionalInfo['podcast_article'] == 'yes' %}<span class="podcast-icon"></span>{% endif %}
-                        {% if article.userHasBlogAccess == '1' %}
-                        <div class="optionSet">
-                            <ul>
-                                <li class="HideBlogArticle" data-blog-guid="{{blogGuid}}" data-guid="{{article.guid}}" data-social="0">Hide <span class="fa fa-eye-slash"></span></li>
-                                    {% set pinTitle = 'Pin Article' %}
-                                    {% set pinTxt = 'PIN' %}
-                                    {% set pinCls = '' %}
-                                    {% if article.isPinned == 1 %}
-                                        {% set pinTitle = 'Un-Pin Article' %}
-                                        {% set pinTxt = 'UN-PIN' %}
-                                        {% set pinCls = 'selected' %}
-                                    {% endif %}
-                                <li class="PinArticleBtn {{pinCls}}" data-blog-guid="{{blogGuid}}" data-position="{{position}}" data-social="0" data-id="{{article.articleId}}" title="{{pinTitle}}" data-status="{{article.isPinned}}">{{pinTxt}} <span class="fa fa-map-marker"></span></li>
-                                <li onclick="window.location = '{{article.editUrl}}';
-                                    return false;">Edit <span class="fa fa-cog"></span></li>
-                            </ul>
-                        </div>
-                    {% endif %}
-                    <div class="social-icons"></div>
-                    <div class="content__section">
-                        {% if article.featuredMedia['source'] is not empty %}
-                            {% if article.featuredMedia['source'] == 'system' %}
-                               {% set mediaVideoUrl = _Media.getMediaVideoUrl(article.featuredMedia, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
-                               {% set mediaVideoUrlOgg = _Media.getMediaVideoUrl(article.featuredMedia, 0, 0,{resource_type: 'video', format: 'ogv'})  %}
-                               {% set mediaVideoUrlWebm = _Media.getMediaVideoUrl(article.featuredMedia, 0, 0,{resource_type: 'video', format: 'webm'})  %}
-                               {% set fancyBoxVideoSrc = "#hidden-content" %}
-                               {% if article.featuredMedia.fullVideoUrl is not empty %}
-                                   {% set fancyBoxVideoSrc = article.featuredMedia.fullVideoUrl %}
-                               {% endif %}    
-                                <div {% if videoId is defined %} id="{{videoId}}" {% endif%} class="content__section-play" data-fancybox data-src="{{fancyBoxVideoSrc}}">
-                                    <video class="slick-video" style="display: none;" id="hidden-content" controls controlsList="nodownload">
-                                        <source src="{{mediaVideoUrl}}" type="video/mp4">
-                                        <source src="{{mediaVideoUrlOgg}}" type="video/ogg">
-                                        <source src="{{mediaVideoUrlWebm}}" type="video/webm">
-                                        Your browser does not support HTML5 video.
-                                    </video>
-                                </div>
-                            {% else %}
-                                {% if article.featuredMedia['source'] == 'youtube' %}
-                                    {% set mediaVideoUrl = "https://www.youtube.com/embed/" ~ article.featuredMedia['videoId']  %}
-                                {% else %}
-                                    {% set mediaVideoUrl = "http://player.vimeo.com/video/" ~ article.featuredMedia['videoId']  %}
-                                {% endif %}
-                                <div {% if videoId is defined %} id="{{videoId}}" {% endif%}  class="content__section-play" data-fancybox href="{{mediaVideoUrl}}"></div>
-                            {% endif %}
-                        {% endif %}
-                        <div class="clearfix"></div>
-                        <div class="content__section-channel">{{article.label | raw}}</div>
-                        <h2 class="content__section-heading text__dotdot" data-fulltext="{{(Html.encode(article.title)) | raw}}" itemprop="headline"><span>{% if article.titlePreview is defined and article.titlePreview is not empty %}{{article.titlePreview | raw}}{% else %} {{article.title | raw}}{% endif %}</span></h2>
-                        <p class="content__section-description text__dotdot" data-fulltext="{{(Html.encode(article.excerpt)) | raw}}"  itemprop="description"><span>{{article.excerpt | raw}}</span></p>
-                        <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-                            <meta itemprop="name" content="{{article.createdBy['displayName']}}"/>
-                        </div>
-                        <div class="content__section-userInfo">
-                            {% set profileImage = _Media.getMediaUrl(article.createdBy['media'], 200, 200, {gravity: 'face', 'crop': 'thumb', 'type' : 'user'}) %}
-                            {% set bgImage = "background-image: url('"~profileImage~"');" %} 
-                            <div class="content__section-userInfo-image image-covered" style="{{bgImage}}"></div>
-                            <div class="content__section-userInfo-content">
-                                <span>{{article.createdBy['displayName']|raw}}</span>
-                                {% set userMeta = _MetaInfo.getMetaData('user', article.createdBy['guid'])%}
-                                <span class="designation">{{userMeta.short_position}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content__section-advanceSlideUp" data-fulltext="{{(Html.encode(article.excerpt)) | raw}}">
-                        <span>{{article.excerpt | raw}}</span>
-                    </div>
-                    <div class="content__section-Share">
-                        <ul>
-                            <li class="facebook" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u={{Html.encode(article.absoluteUrl)}}','_blank');">
-                                <span class="customIcons customIcons-facebook customIcons-facebookSmall"></span>
-                            </li>
-                            <li class="twitter" onclick="window.open('http://twitter.com/intent/tweet?status={{Html.encode(article.absoluteUrl)}}','_blank');">
-                                <span class="customIcons customIcons-twitter customIcons-twitterSmall"></span>
-                            </li>
-                        </ul>
-                    </div>
+<div class="card__view {{class}}">
+    <div class=""><!-- Make these classes dynamic 'social twitter/linkedin/vimeo/youtube/instagram' 'video' 'without-image' -->
+        <a href="javascript:;" class="card__view--items">
+            <div class="card__view--content">
+                <div class="mask"></div>
+                {% set bgImg = network.templatePath~'/static/images/test-image.jpg' %}
+                <figure class="image-covered" style="background-image: url({{bgImg}})"></figure>
+                <div class="optionSet">
+                    <ul>
+                        <li>Hide <span class="fa fa-eye-slash"></span></li>
+                        <li>Pin <span class="fa fa-map-marker"></span></li>
+                        <li>Edit <span class="fa fa-cog"></span></li>
+                    </ul>
                 </div>
-            </a>
-        </div>
-    </div>
-{% else %} 
-    {% set social = article.social %}
-    {% set cardImageClass = 'withoutImage' %}
-    {% set bgImgSocial = '' %}
-    {% if social.hasMedia %}
-        {% set cardImageClass = '' %}
-        {% set bgImgSocial = "background-image: url('"~social.media['path']~"');" %}
-    {% endif %} 
-    {% set videoClass = '' %}
-    {% if social.media['type'] == 'video' and social.media['videoUrl'] is not empty %}
-        {% set videoClass = 'video' %}
-    {% endif %}
-    {% set socialContent = social.content | raw %}
-    <div class="card__view {{class}} {{cardImageClass}} {{videoClass}} {{social.source}}">
-        <div class="social {{cardImageClass}} {{videoClass}} {{social.source}} swap" data-blog-guid="{{social.blog['guid']}}"  data-source="{{social.source}}"  data-id="{{article.socialId}}" data-label="{{social.blog['title']}}" data-position="{{position}}" data-social="1" data-article-image="{{social.media['path']}}" data-article-text="{{Helper.htmlToText(social.content, -1) | raw | escape('html')}}" data-user-image="{{social.user['media']['path']}}" data-user-name="{{ social.user['name'] | lower }}">
-            <a href="{{ social.url }}" class="socialCard" data-blog-guid="{{social.blog['guid']}}" data-guid="{{social.guid}}" style="{{bgImgSocial}}" target="_blank">
-                <div  class="card__view-content">
-                    <div class="mask"></div>
-                    <figure class="image-covered" style="{{bgImgSocial}}"></figure>
-                        {% if article.userHasBlogAccess == '1' %}
-                        <div class="optionSet">
-                            <ul>
-                                <li class="HideBlogArticle" data-blog-guid="{{social.blog['guid']}}" data-guid="{{social.guid}}" data-social="1">Hide <span class="fa fa-eye-slash"></span></li>
-                                    {% set pinTitle = 'Pin Article' %}
-                                    {% set pinTxt = 'PIN' %}
-                                    {% set pinCls = '' %}
-                                    {% if article.isPinned == 1 %}
-                                        {% set pinTitle = 'Un-Pin Article' %}
-                                        {% set pinTxt = 'UN-PIN' %}
-                                        {% set pinCls = 'selected' %}
-                                    {% endif %}
-                                <li class="PinArticleBtn {{pinCls}}" data-blog-guid="{{social.blog['guid']}}" data-position="{{position}}" data-social="1" data-id="{{article.socialId}}" title="{{pinTitle}}" data-status="{{article.isPinned}}">{{pinTxt}} <span class="fa fa-map-marker"></span></li>
-                                <li class="editSocialPost" data-social="1" data-url="/admin/social-funnel/update-social?guid={{social.blog['guid']}}&socialguid={{social.guid}}">
-                                    Edit <span class="fa fa-cog"></span>
-                                </li>
-                            </ul>
-                        </div>
-                    {% endif %}
-                    <div class="social-icons"></div>
+                <div class="social-icons"></div>
+                <div class="video-play"></div>
+                <div class="content__section-block">
                     <div class="content__section">
-                        <div class="content__section-play"></div>
+                        <div class="content__section-userInfo"> 
+                            <div class="content__section-userInfo-image image-covered" style="background-image: url({{bgImg}})"></div> 
+                            <div class="content__section-userInfo-content"> 
+                                <span>Rebekah Brown</span> 
+                                <span class="designation">Director of Monash Sustainable Development Institute</span> 
+                            </div> 
+                        </div>
                         <div class="clearfix"></div>
-                        <div class="content__section-channel">{{social.blog['title'] | raw }}</div>
-                        <h2 class="content__section-heading text__dotdot" data-fulltext="{{socialContent}}" id="updateSocial{{article.socialId}}" data-update="0"><span>{{socialContent}}</span></h2>
-                        {#<p class="content__section-description text__dotdot" data-fulltext="{{socialContent}}" id="updateSocial{{article.socialId}}" data-update="0"><span>{{socialContent}}</span></p>#}
-                        <div class="content__section-userInfo">
-                            <div class="content__section-userInfo-image image-covered" style="background-image: url('{{social.user['media']['path']}}');"></div>
-                            <div class="content__section-userInfo-content">
-                                <span>@{{ social.user['name'] | lower }}</span>
-                            </div>
+                        <h2 class="content__section-heading">With Image card</h2>
+                        <div class="content__section-description">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+                        <div class="content__section-button">
+                            <button href="javascript:;" class="button button--radius button--red">Learn more</button>
                         </div>
                     </div>
                 </div>
-            </a>
-        </div>
+            </div>
+        </a>
     </div>
-{% endif %}
+</div>

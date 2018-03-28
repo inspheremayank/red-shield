@@ -7,39 +7,24 @@
 <!-- End About CTA section -->
 <div class="clearfix"></div>
 <!-- Begin learning CTA section -->
-<div class="cta-wrap cta-wrap__learning bg-image" style="background-image: url('{{network.templatePath}}/static/images/test-image.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="cta-wrap__main text-center">
-                    <div class="cta-wrap__main--sr">
-                        <div class="cta-wrap__main--title">Jen’s Story</div>
-                        <div class="cta-wrap__main--description">This is an excerpt from the story - generally it is 80 characters, but it can be longer. Finish with something that makes them want to click.</div>
-                        <div class="cta-wrap__main--buttons">
-                            <a class="button button--radius button--red" href="javascript:;">LEARN MORE</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="container-fluid">
+    <div class="row">
+        {{ this.render('partials/_single-article.twig',{network:network, class: 'col-12 card__view-full single px-0'}) | raw }}
     </div>
 </div>
 <!-- End learning CTA section -->
 <div class="clearfix"></div>
 <!-- Begin cards design section -->
-<div class="cards-wrap">
+<div class="card-wrap">
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3 class="text-center fs-52">Our Community</h3>
+                <h3 class="text-center fs-52 font-light red--color">Our Community</h3>
                 <div class="row">
-                    <div class="card__view col-12 col-md-4 card__view-third">
-                        <a href="javascript:;">
-                            <div class="card__view-content">
-                                asdd
-                            </div>
-                        </a>
-                    </div>
+                    {{ this.render('partials/_single-article.twig',{network:network, class: 'col-12 col-md-4 card__view-third'}) | raw }}
+                    {{ this.render('partials/_single-article.twig',{network:network, class: 'col-12 col-md-4 card__view-third'}) | raw }}
+                    {{ this.render('partials/_single-article.twig',{network:network, class: 'col-12 col-md-4 card__view-third'}) | raw }}
+                    {{ this.render('partials/_single-article.twig',{network:network, class: 'col-12 col-md-4 card__view-third'}) | raw }}
                 </div>
             </div>
         </div>

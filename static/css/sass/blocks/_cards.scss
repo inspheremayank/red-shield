@@ -49,6 +49,9 @@
                     max-height: 150px;
                     overflow: hidden;
                 }
+                &-button {
+                    display: none;
+                }
                 &-userInfo { 
                     display: flex;
                     align-items: center;
@@ -70,6 +73,9 @@
                     &-hide {
                         display: none;
                     }
+                }
+                &-block {
+                    z-index: 13;
                 }
             }
             .optionSet {
@@ -233,6 +239,68 @@
                 .card__view--content {
                     .optionSet {
                         @include opacity(1); 
+                    }
+                }
+            }
+        }
+        &-full {
+            &.single {
+                .card__view--items {
+                    &:hover, &:focus {
+                        @include box-shadow(0 0 0px 0px rgba($zblack, 0));
+                    }
+                }
+                .card__view--content {
+                    height: inherit;
+                    .content__section {
+                        @include flexbox();
+                        width: 550px;
+                        @include flex-direction(column,vertical);
+                        @include margin(70 0);
+                        @include border-radius(4px);
+                        @include padding(70 50);
+                        text-align: center;
+                        @media #{$media-ipadSmall} {
+                            width: $viewportSize;
+                        }
+                        &-block {
+                            width: 100%;
+                            max-width: 1140px;
+                            margin-left: auto;
+                            margin-right: auto;
+                            @include flexbox();
+                            @include justify-content(flex-end); 
+                            @media #{$media-desktop} {
+                                max-width: 960px;
+                            }
+                            @media #{$media-ipadPortrait} {
+                                max-width: 720px;
+                            }
+                            @media #{$media-ipadSmall} {
+                                max-width: 540px;
+                                @include padding(0 10);
+                            }
+                        }
+                        &-userInfo {
+                            display: none;
+                        }
+                        &-heading {
+                            color: $zblack;
+                            @extend .font-light;
+                            @include font-size(50); 
+                        }
+                        &-description {
+                            color: $black;
+                            @extend .font-regular;
+                            @include margin-top(20);
+                            @include font-size(24); 
+                            line-height: 1.83;
+                            max-height: inherit;
+                        }
+                        &-button {
+                            display: block;
+                            @include margin-top(35);
+                        }
                     }
                 }
             }
