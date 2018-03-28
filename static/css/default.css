@@ -2711,6 +2711,115 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
 .simplemodal-overlay:hover {
   cursor: pointer; }
 
+/* search section
+================================ */
+.search, .error {
+  padding: 10.625rem 0rem 2.5rem;
+  /* .card__view {
+      margin-top: 40px;
+  } */ }
+  .search__heading, .error__heading {
+    font-size: 1.875rem;
+    line-height: 2.25rem; }
+    .search__heading.small, .error__heading.small {
+      padding: 2.5rem 0rem;
+      font-size: 1.125rem;
+      line-height: 1.35rem; }
+  .search__query, .error__query {
+    font-style: italic; }
+  .search__box, .error__box {
+    max-width: 500px;
+    margin: 0 auto 30px; }
+    .search__box form, .error__box form {
+      position: relative; }
+    .search__box input, .error__box input {
+      width: 100%;
+      -webkit-border-radius: 25px;
+      border-radius: 25px;
+      border: 1px solid #d2dce3;
+      outline: none;
+      height: 46px;
+      padding: 0rem 0.9375rem;
+      color: #505050; }
+    .search__box .button, .error__box .button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 46px;
+      height: 46px;
+      padding: 0rem; }
+      .search__box .button i, .error__box .button i {
+        margin-right: 0px;
+        margin-left: 10px; }
+  .search__main, .error__main {
+    padding: 1.875rem 0rem; }
+    .search__main .search__box, .error__main .search__box {
+      margin-bottom: 0px;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      display: flex;
+      padding: 0rem 0.625rem; }
+      .search__main .search__box form, .error__main .search__box form {
+        width: 100%; }
+      .search__main .search__box input, .error__main .search__box input {
+        border: none;
+        -webkit-border-radius: 0px;
+        border-radius: 0px; }
+        .search__main .search__box input::-webkit-input-placeholder, .error__main .search__box input::-webkit-input-placeholder {
+          color: #505050;
+          opacity: 1; }
+        .search__main .search__box input:-moz-placeholder, .error__main .search__box input:-moz-placeholder {
+          /* Firefox 18- */
+          color: #505050;
+          opacity: 1; }
+        .search__main .search__box input::-moz-placeholder, .error__main .search__box input::-moz-placeholder {
+          /* Firefox 19+ */
+          color: #505050;
+          opacity: 1; }
+        .search__main .search__box input:-ms-input-placeholder, .error__main .search__box input:-ms-input-placeholder {
+          color: #505050;
+          opacity: 1; }
+  .search__error, .search__content, .error__error, .error__content {
+    text-align: center;
+    margin-top: 40px; }
+    .search__error-image, .search__content-image, .error__error-image, .error__content-image {
+      height: 60px;
+      display: block; }
+      .search__error-image img, .search__content-image img, .error__error-image img, .error__content-image img {
+        width: 100%;
+        height: 100%; }
+    .search__error h3, .search__content h3, .error__error h3, .error__content h3 {
+      font-size: 3.75rem;
+      line-height: 4.5rem;
+      margin-bottom: 15px;
+      letter-spacing: 2px; }
+    .search__error p, .search__content p, .error__error p, .error__content p {
+      font-size: 1.25rem;
+      line-height: 1.5rem;
+      letter-spacing: 1px; }
+      .search__error p.large, .search__content p.large, .error__error p.large, .error__content p.large {
+        font-size: 1.5rem;
+        line-height: 1.8rem; }
+    .search__error.small, .search__content.small, .error__error.small, .error__content.small {
+      margin: 20px 0 0px;
+      text-align: left;
+      overflow: hidden; }
+      @media screen and (max-width: 767px) {
+        .search__error.small, .search__content.small, .error__error.small, .error__content.small {
+          margin: 5px 0 30px; } }
+      .search__error.small p, .search__content.small p, .error__error.small p, .error__content.small p {
+        font-size: 1rem;
+        line-height: 1.2rem;
+        letter-spacing: 1px;
+        margin-bottom: 0px; }
+  @media screen and (max-width: 767px) {
+    .search .chosen-container, .error .chosen-container {
+      margin-top: 15px; } }
+
+.error {
+  background: #f2f2f2 none repeat scroll 0 0; }
+
 /* Dependencies Breakup section
 ================================ */
 /* Begin choosen select styling */

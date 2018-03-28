@@ -1,0 +1,112 @@
+/* search section
+================================ */
+
+.search, .error {
+    @include padding(170 0 40);
+    &__heading {
+        @include font-size(30);
+        &.small {
+            @include padding(40 0);
+            @include font-size(18);
+        }
+    }
+    &__query {
+        font-style: italic;
+    }
+    &__box {
+        max-width: 500px;
+        margin: 0 auto 30px;
+        form {
+            position: relative;
+        }
+        input {
+            width: 100%;
+            @include border-radius(25px);
+            border: 1px solid $border;
+            outline: none;
+            height: 46px;
+            @include padding(0 15);
+            color: $black;
+        }
+        .button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            @include size(46px);
+            @include padding(0);
+            i {
+                margin-right: 0px;
+                margin-left: 10px;
+            }
+        }
+    }
+    &__main {
+        @include padding(30 0);
+        .search__box {
+            margin-bottom: 0px;
+            align-items: center;
+            justify-content: center;
+            height: $viewportSize;
+            display: flex;
+            @include padding(0 10); 
+            form {
+                width: $viewportSize;
+            }
+            input {
+                border: none;
+                @include border-radius(0px);
+                @include placeholder {
+                    color: $black;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    &__error, &__content {
+        text-align: center;
+        margin-top: 40px;
+        &-image {
+            height: 60px;
+            display: block;
+            img {
+                @include size(#{$viewportSize});
+            }
+        }
+        h3 {
+            @include font-size(60);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        } 
+        p {
+            @include font-size(20);
+            letter-spacing: 1px;
+            &.large {
+                @include font-size(24);
+            }
+        }
+        &.small {
+            margin: 20px 0 0px;
+            text-align: left; 
+            overflow: hidden;
+            @media #{$media-ipadSmall} {
+                margin: 5px 0 30px;
+            }
+            p {
+                @include font-size();
+                letter-spacing: 1px;
+                margin-bottom: 0px;
+            }
+        }
+    }
+    /* .card__view {
+        margin-top: 40px;
+    } */
+    .chosen-container {
+        @media #{$media-ipadSmall} {
+            margin-top: 15px;
+        } 
+    } 
+}
+.error { 
+    background: darken($white, 5%) none repeat scroll 0 0;
+}
