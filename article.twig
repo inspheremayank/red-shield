@@ -175,19 +175,6 @@
                                         <div class="article__main-content articleContent" data-content-url="{{article.url}}">
                                             {{article.content | _resizeImages({quality: 75}) | raw}}
                                         </div>
-                                        <div class="clearfix"></div>
-                                        {% set keywords = article.keywords | split(',') %}
-                                        {% if keywords | length > 0 %}
-                                            <div class="category__wrapper-content-tags mt-0">
-                                                <ul>
-                                                    {% for keyword in keywords %}
-                                                        {% if keyword is defined and keyword is not empty %}
-                                                            <li><a href="{{_Blog.getUrl()}}/search?s={{keyword}}">{{keyword}}</a></li>
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                </ul>
-                                            </div>
-                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

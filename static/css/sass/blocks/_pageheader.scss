@@ -14,14 +14,14 @@
         @include padding(15 0); 
     }
     @media #{$media-ipadSmall} {
-        @include padding(10 0); 
+        @include padding(8 0); 
     }
     &__section {
         width: $viewportSize;
         &-left {
             .main-logo {
                 display: block;
-                width: 80px;
+                width: 70px;
                 @include transition(all 0.3s ease);
                 @media #{$media-desktop} {
                     width: 50px;
@@ -40,26 +40,26 @@
                     @include font-size(13);
                 }
                 @media #{$media-ipadSmall} {
-                    @include padding(10 12);
+                    @include padding(8 12);
                     @include font-size(12);
                 }
             }
         }
     }
     &__fixed {
-        @include padding(15 0);
+        @include padding(10 0);
         background: rgba($white, 1) none repeat scroll 0 0;
         @include box-shadow(rgba(0,0,0,0.2) 0px 1px 1.5px 1px);
         position: fixed;
         @media #{$media-ipadSmall} {
-            @include padding(10 0);
+            @include padding(8 0);
         }
         .header__section {
             &-left {
                 .main-logo {
-                    width: 50px;
+                    width: 40px;
                     @media #{$media-desktop} {
-                        width: 40px;
+                        width: 30px;
                     }
                     @media #{$media-ipadSmall} {
                         width: 30px;
@@ -68,10 +68,10 @@
             }
             &-right {
                 .button {
-                    @include padding(12 30);
-                    @include font-size(14);
+                    @include padding(8 12);
+                    @include font-size(12);
                     @media #{$media-ipadSmall} {
-                        @include padding(10 12);
+                        @include padding(8 12);
                         @include font-size(12);
                     }
                 }

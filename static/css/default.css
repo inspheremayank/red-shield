@@ -786,12 +786,12 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
       padding: 0.9375rem 0rem; } }
   @media screen and (max-width: 767px) {
     .header {
-      padding: 0.625rem 0rem; } }
+      padding: 0.5rem 0rem; } }
   .header__section {
     width: 100%; }
     .header__section-left .main-logo {
       display: block;
-      width: 80px;
+      width: 70px;
       transition: all 0.3s ease;
       -moz-transition: all 0.3s ease;
       -o-transition: all 0.3s ease;
@@ -817,11 +817,11 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
           line-height: 0.975rem; } }
       @media screen and (max-width: 767px) {
         .header__section-right .button {
-          padding: 0.625rem 0.75rem;
+          padding: 0.5rem 0.75rem;
           font-size: 0.75rem;
           line-height: 0.9rem; } }
   .header__fixed {
-    padding: 0.9375rem 0rem;
+    padding: 0.625rem 0rem;
     background: white none repeat scroll 0 0;
     -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1.5px 1px;
     -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1.5px 1px;
@@ -830,22 +830,22 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
     position: fixed; }
     @media screen and (max-width: 767px) {
       .header__fixed {
-        padding: 0.625rem 0rem; } }
+        padding: 0.5rem 0rem; } }
     .header__fixed .header__section-left .main-logo {
-      width: 50px; }
+      width: 40px; }
       @media screen and (max-width: 1199px) {
         .header__fixed .header__section-left .main-logo {
-          width: 40px; } }
+          width: 30px; } }
       @media screen and (max-width: 767px) {
         .header__fixed .header__section-left .main-logo {
           width: 30px; } }
     .header__fixed .header__section-right .button {
-      padding: 0.75rem 1.875rem;
-      font-size: 0.875rem;
-      line-height: 1.05rem; }
+      padding: 0.5rem 0.75rem;
+      font-size: 0.75rem;
+      line-height: 0.9rem; }
       @media screen and (max-width: 767px) {
         .header__fixed .header__section-right .button {
-          padding: 0.625rem 0.75rem;
+          padding: 0.5rem 0.75rem;
           font-size: 0.75rem;
           line-height: 0.9rem; } }
 
@@ -1540,6 +1540,25 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
         line-height: 0.9rem;
         letter-spacing: 1px;
         line-height: 1.5; }
+    .article__main-authorSlide-details {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+      -moz-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-orient: vertical;
+      -moz-box-orient: vertical;
+      -ms-box-orient: vertical;
+      box-orient: vertical;
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      -ms-justify-content: center;
+      justify-content: center;
+      -ms-flex-pack: center; }
   .article__main-author-wrapper {
     padding: 4.375rem 0rem 2.5rem; }
     .article__main-author-wrapper .author__listing {

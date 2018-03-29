@@ -404,6 +404,11 @@
                         //font-weight: $weightRegular;
                     }
                 }
+                &-details {
+                    @include flexbox();
+                    @include flex-direction(column,vertical);
+                    @include justify-content(center);
+                }
             }
             &-wrapper {
                 @include padding(70 0 40);
