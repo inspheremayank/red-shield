@@ -28,9 +28,11 @@
                         {% if article.userHasBlogAccess == '1' %}
                         <div class="optionSet">
                             <ul>
-                                <li>Hide <span class="fa fa-eye-slash"></span></li>
+                                <div class="admin-actions__action admin-actions__action--hide HideBlogArticle" data-guid="{{article.guid}}" data-social="0">
+                                    <li>Hide <span class="fa fa-eye-slash"></span></li>
+                                </div>
 
-                                {% set pinTitle = 'Pin Article' %}
+                                {% set pinTitle = 'Pin Article' %}  
                                 {% set pinTxt = 'PIN' %}
                                 {% set pinCls = '' %}
                                 {% if article.isPinned == 1 %}
@@ -38,10 +40,15 @@
                                     {% set pinTxt = 'UN-PIN' %}
                                     {% set pinCls = 'selected' %}
                                 {% endif %}
-                                <li class=" {{pinCls}}">{{pinTxt}} <span class="fa fa-map-marker"></span></li>
-                                    {% if article.userHasEditArticleAccess == '1' %}
-                                    <li onclick="window.location = '{{article.editUrl}}';
-                                    return false;">Edit <span class="fa fa-cog"></span></li>
+                                <div class="admin-actions__action admin-actions__action--pin PinArticleBtn {{pinCls}}" data-position="{{position}}" data-social="0" data-id="{{article.articleId}}" title="{{pinTitle}}" data-status="{{article.isPinned}}">
+                                    <li><i>{{pinTxt}}</i> <span class="fa fa-map-marker"></span></li>
+                                </div>
+                                {% if article.userHasEditArticleAccess == '1' %}
+                                    <div class="admin-actions__action admin-actions__action--edit" onclick="window.location = '{{article.editUrl}}';
+                                            return false;">
+                                        <li>Edit <span class="fa fa-cog"></span></li>
+                                    </div>
+                                    
                                     {% endif %}
                             </ul>
                         </div>
@@ -112,7 +119,7 @@
                                 <li class=" {{pinCls}}">{{pinTxt}} <span class="fa fa-map-marker"></span></li>
                                     {% if article.userHasEditArticleAccess == '1' %}
                                     <li onclick="window.location = '{{article.editUrl}}';
-                                    return false;">Edit <span class="fa fa-cog"></span></li>
+                                            return false;">Edit <span class="fa fa-cog"></span></li>
                                     {% endif %}
                             </ul>
                         </div>
