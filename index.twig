@@ -19,9 +19,9 @@
 {% if articles|length > 0 %}
     {% if articles[0] is defined %}
         <div class="container-fluid">
-                <div class="row">
-                     {{this.render('partials/_single-article.twig', {article: articles[0], 'position': 1, class: 'col-12  card__view-full single px-0'}) | raw}}            
-                </div>
+            <div class="row">
+                 {{this.render('partials/_single-article.twig', {article: articles[0], 'position': 1, class: 'col-12  card__view-full single px-0'}) | raw}}            
+            </div>
         </div>
                 
         <div class="clearfix"></div>

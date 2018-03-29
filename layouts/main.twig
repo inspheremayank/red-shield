@@ -72,6 +72,12 @@
     </head>
     <body class="body {{bodyClass}}">
         {{ this.beginBody() }}
+        
+        <!-- Google Tag Manager(noscript) -->
+        {% if network.thirdPartyIntegrations['googleTagManager'] | length > 0 %}
+            {{network.thirdPartyIntegrations['googleTagManager']['noscript'] | raw}}
+        {% endif %}
+        
         {{ this.render('partials/_header.twig', {network:network, blog:blog}) | raw }}
         
         <div class="clearfix"></div>

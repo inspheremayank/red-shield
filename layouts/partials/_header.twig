@@ -5,8 +5,13 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center header__section">
                     <aside class="header__section-left">
-                        <a class="main-logo" href="javascript:;" target="_blank">
-                            <img src="{{network.templatePath}}/static/images/logos/salvation-logo.svg" class="img-fluid" alt="logo" />
+                        {% set mainLogo = network.templatePath~'/static/images/logos/salvation-logo.svg' %}
+                        {% set logoUrl = network.networkLogoLinkUrl %}
+                        {% if network.logoMedia | length > 0 %}
+                            {% set mainLogo = _Media.getMediaUrl(network.logoMedia, 177, 65, {'crop': 'limit'} )%}
+                        {% endif %}
+                        <a class="main-logo" href="{{logoUrl}}">
+                            <img src="{{mainLogo}}" class="img-fluid" alt="logo" />
                         </a>
                     </aside>
                     <aside class="header__section-right">

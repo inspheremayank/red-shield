@@ -1,3 +1,4 @@
+{% set blogInfo = _Blog.getHomeBlogSettings()%}
 <footer class="footer">
     <!-- Begin Footer CTA section -->
     {{ this.render('./../../partials/_contribute_red_shield.twig', {network:network, keyword: 'contribute_red_shield'}) | raw }}    
@@ -10,8 +11,13 @@
                 <div class="col">
                     <div class="footer-main__container d-flex justify-content-between align-items-center">
                         <div class="footer-main__container--logo">
-                            <a href="javscript:;">
-                                <img class="img-fluid" src="{{network.templatePath}}/static/images/logos/salvation-logo.svg" alt="footer logo" />
+                            {% set mainLogo = network.templatePath~'/static/images/logos/salvation-logo.svg' %}
+                            {% set logoUrl = network.networkLogoLinkUrl %}
+                            {% if network.logoMedia | length > 0 %}
+                                {% set mainLogo = _Media.getMediaUrl(network.logoMedia, 177, 65, {'crop': 'limit'} )%}
+                            {% endif %}
+                            <a href="{{logoUrl}}">
+                                <img class="img-fluid" src="{{mainLogo}}" alt="footer logo" />
                             </a>
                         </div>
                         <div class="footer-main__container__listing">
@@ -19,12 +25,7 @@
                             <a class="footer-main__container__listing--items" href="javscript:;">Copyright 2018 The Salvation Army</a>
                             <a class="footer-main__container__listing--items" href="javscript:;">All donations over $2 are tax-deductible</a>
                         </div>
-                        <div class="footer-main__container__social">
-                            <a href="javascript:;"><i class="fa fa-facebook-official"></i></a>
-                            <a href="javascript:;"><i class="fa fa-twitter"></i></a>
-                            <a href="javascript:;"><i class="fa fa-instagram"></i></a>
-                            <a href="javascript:;"><i class="fa fa-youtube-play"></i></a>
-                        </div>
+                        {{ this.render('social-links.twig', {blogInfo: blogInfo}) | raw }}
                     </div>
                 </div>
             </div>
