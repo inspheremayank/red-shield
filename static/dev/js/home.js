@@ -91,6 +91,11 @@ HomeController.Listing = (function ($) {
         $('body').on('click', 'div.admin-actions__action--edit', function (e) {
             e.stopPropagation();
         });
+        
+        $('body').on('click', '.close__lg-modal', function (e) {
+            e.stopPropagation();
+            $('.modal .modal-content').html('');
+        });
 
         $('body').on('click', 'a.socialCard', function (e) {
             e.preventDefault();
