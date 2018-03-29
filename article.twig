@@ -1,30 +1,135 @@
 {% set network = _Network.getNetworkData() %}
-<!-- Begin Article page section -->
-{% set bgImg = network.templatePath~'/static/images/test-image.jpg' %}
+{{set(this,'title',(article.title))}}
+{% if article.meta.title is not empty %}
+   {{set(this,'title',(article.meta.title))}} 
+{% endif %}   
+
+{% set sliderClass = '' %}
+{% if article.media | length == 0 %}
+    {% set sliderClass = 'article__main-titleBand-withoutImage' %}
+{% else %}
+    {% for media in article.media %}
+        {% if media.type == 'video' %}
+            {% set sliderClass = 'article__main-titleBand-video' %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{{this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'})}}
+{% set publisher = {height: 60, width: 600, name: network.title, logo: ''} %}
+{% if network.logoMedia | length > 0 %}
+    {% set publisher = publisher|merge({logo:_Media.getMediaUrl(network.logoMedia, publisher.width, publisher.height, {'crop': 'lpad'} )})%}
+{% endif %}
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": "{{article.url}}", 
+    "headline": "{{article.title}}",
+    "datePublished": "{{article.publishedDate}}",
+    "dateModified": "{{article.updatedAt}}",
+    "description": "{{article.content}}",
+    "author": {
+    "@type": "Person",
+    "name": "{{article.createdBy['displayName']}}"
+    }
+    {% if publisher.logo is not empty %},
+        "publisher": {
+        "@type": "Organization",
+        "name": "Monash University",
+        "logo": {
+        "@type": "ImageObject",
+        "url": "{{publisher.logo}}",
+        "width": {{publisher.width}},
+        "height": {{publisher.height}}
+        }
+        }
+    {% endif %}
+    {% if article.media | length > 0 %}
+        ,
+        {% set i = 1 %}            
+        "image":[ 
+        {% for media in article.media %} 
+            {
+            "@type": "ImageObject",
+            "url": "{{media.path}}",
+            "width": {{media.width}},
+            "height": {{media.height}}
+            }
+            {% if article.media | length > i %}
+                ,
+            {% endif %}
+            {% set i = i+1 %}
+        {% endfor %}
+        ]                
+    {% endif %}
+    }
+</script>
 <div class="page__content-main">
     <div class="container-fluid"> 
         <div class="row"> 
             <div class="col-12 px-0"> 
-                <div class="article__wrapper"> 
+                <div class="article__wrapper {{sliderClass}}"> 
                     <div class="article__slide">
-                        <div class="mainSlide slider">
-                            <div class="item">
-                                <img src="{{bgImg}}" class="img-fluid" alt="image" />
-                                <div class="image-caption">Only Image slide</div>
+                        {% if article.media | length > 0 %}
+                            {% set pos = 1 %}
+                            <div class="mainSlide slider">
+                                {% for media in article.media %}
+                                    {% if media.type == 'video' %} 
+                                        {% set mediaUrl = "" %}
+                                        {% if media.isSystemVideo %}
+                                            {% set mediaUrl = _Media.getMediaVideoUrl(media, 0, 0,{resource_type: 'video', format: 'mp4'})  %}
+                                            {% set mediaVideoUrlOgg = _Media.getMediaVideoUrl(media, 0, 0,{resource_type: 'video', format: 'ogv'})  %}
+                                            {% set mediaVideoUrlWebm = _Media.getMediaVideoUrl(media, 0, 0,{resource_type: 'video', format: 'webm'})  %}
+                                            
+                                            <div class="item">
+                                                {% if media.fullVideoUrl is not empty %}
+                                                    {% set img = _Media.getMediaUrl(media, 1900, 1900, {'crop': 'limit'} ) %}
+                                                    <img src="{{img}}" class="img-fluid" alt="image" />
+                                                    <div id="play-icon-article-page{% if pos > 1%}-{{pos}}{% endif %}" class="playFancyVideo" data-fancybox href="{{media.fullVideoUrl}}"></div>
+                                                {% else %}
+                                                    <div id="play-icon-article-page{% if pos > 1%}-{{pos}}{% endif %}" class="playFancyVideo" data-fancybox data-src="#hidden-content">
+                                                        <video class="slick-video" style="display: none;" id="hidden-content" controls controlsList="nodownload">
+                                                            <source src="{{mediaUrl}}" type="video/mp4">
+                                                            <source src="{{mediaVideoUrlOgg}}" type="video/ogg">
+                                                            <source src="{{mediaVideoUrlWebm}}" type="video/webm">
+                                                        </video>
+                                                    </div>
+                                                    {% set img = _Media.getMediaUrl(media, 1900, 1900, {'crop': 'limit'} ) %}
+                                                    <img src="{{img}}" class="img-fluid" alt="image" />
+                                                    {% if pos == 1%}
+                                                        <video class="autoplay-video" autobuffer muted controlsList="nodownload" loop>
+                                                            <source src="{{mediaUrl}}" type="video/mp4">
+                                                            <source src="{{mediaVideoUrlOgg}}" type="video/ogg">
+                                                            <source src="{{mediaVideoUrlWebm}}" type="video/webm">
+                                                        </video>
+                                                        <div class="image-caption">{{media.caption}}</div>
+                                                    {% endif %}
+                                                {% endif %}                                                
+                                            </div>
+                                        {% else %}
+                                            {% if media.source == 'youtube' %}
+                                                {% set mediaUrl = "https://www.youtube.com/embed/" ~ media.videoId ~ "?rel=0"  %}
+                                            {% else %}
+                                                {% set mediaUrl = "http://player.vimeo.com/video/" ~ media.videoId  %}
+                                            {% endif %}
+                                            <div class="item">
+                                                {% set img = _Media.getMediaUrl(media, 1900, 1900, {'crop': 'limit'} ) %}
+                                                <div id="play-icon-article-page{% if pos > 1%}-{{pos}}{% endif %}" class="playFancyVideo" data-fancybox href="{{mediaUrl}}"></div>
+                                                <img src="{{img}}" class="img-fluid" alt="image" />
+                                                <div class="image-caption">{{media.caption}}</div>
+                                            </div>
+                                        {% endif %}
+                                    {% else %}
+                                        {% set img = _Media.getMediaUrl(media, 1900, 1900, {'crop': 'limit'} ) %}
+                                        <div class="item">
+                                            <img src="{{img}}" class="img-fluid" alt="image" />
+                                            <div class="image-caption">{{media.caption}}</div>
+                                        </div>
+                                    {% endif %}
+                                    {% set pos = pos+1 %}
+                                {% endfor %}
                             </div>
-                            <div class="item">
-                                <div class="playFancyVideo" data-fancybox href="https://www.youtube.com/watch?v=fDEzL8AZm9c"></div>
-                                <img src="{{bgImg}}" class="img-fluid" alt="image" />
-                                <div class="image-caption">Youtube video</div>
-                            </div>
-                            <div class="item">
-                                <div class="playFancyVideo" data-fancybox data-src="#hidden-content">
-                                    <video class="slick-video" style="display: none;" id="hidden-content" controls controlsList="nodownload"></video>
-                                </div>
-                                <img src="{{bgImg}}" class="img-fluid" alt="image" />
-                                <div class="image-caption">System video</div>
-                            </div>
-                        </div>
+                        {% endif %}
                     </div>
                     <div class="clearfix"></div>
                     <div class="article__main">
@@ -35,8 +140,8 @@
                                         <div class="article__main-titleBand-content effects">
                                             <div class="article__userInfo">
                                                 <div class="article__userInfo-content">
-                                                    <div class="article__userInfo-date"> <span>Published Dec 06 2017</span></div>
-                                                    <h1 class="article__userInfo-title text-center">Article with single video</h1> 
+                                                    <div class="article__userInfo-date"> <span>Published {{article.publishedDate}}</span></div>
+                                                    <h1 class="article__userInfo-title text-center">{{article.title}}</h1> 
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -44,10 +149,11 @@
                                                     <div class="article__main-authorSlide">
                                                         <div class="author-carousel regular slider">
                                                             <div class="article__main-authorSlide-content">
-                                                                <a href="javascript:;" class="">
-                                                                    <figure class="image-covered rounded-circle" style="background-image:url('{{bgImg}}');"></figure>
+                                                                <a href="javascript:;" class="no-link">
+                                                                    <figure class="image-covered rounded-circle" style="background-image:url('{{_Media.getMediaUrl(article.createdBy['media'], 200, 200, {crop:'thumb', radius: 'max', gravity:'face',type:'user'})}}');"></figure>
+                                                                    {% set userName = article.createdBy['displayName'] %}
                                                                     <div class="article__main-authorSlide-details">
-                                                                        <div class="title">Mayank Mehendiratta</div>
+                                                                        <div class="title">{{userName | raw}}</div>
                                                                         {% set userMeta = _MetaInfo.getMetaData('user', article.createdBy['guid'])%}
                                                                         <div class="designation">{{userMeta.short_position}}</div>
                                                                     </div>
@@ -66,38 +172,22 @@
                             <div class="row">
                                 <div class="col-12 col-md-10 m-auto">
                                     <div class="article__main-wrapper">
-                                        <div class="article__main-content articleContent" data-content-url="http://monashuniversity.cognitives.link/2017/12/05/53928/article-with-single-video">
-                                            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                            <p style="text-align: center;">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                            <h2>What is Lorem Ipsum?</h2>
-                                            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a <em>galley of type and scrambled</em> it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, <a href="http://google.com">remaining essentially</a> unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                            <h3>What is Lorem Ipsum?</h3>
-                                            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                            <figure class="image img-responsive" style="float:left"><img alt="" height="315" src="https://res.cloudinary.com/cognitives/image/upload/c_limit,dpr_auto,f_auto,fl_lossy,q_75/ry28dfostfaopytm9xpz" style="max-width: 100% !important;" width="561">
-                                                <figcaption>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</figcaption>
-                                            </figure>
-                                            <p>&nbsp;Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                            <p><strong>Lorem Ipsum</strong> has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                            <ul>
-                                                <li>&nbsp;Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</li>
-                                                <li>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
-                                                <li>&nbsp;Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</li>
-                                                <li>But also the leap into electronic typesetting, remaining essentially unchanged.</li>
-                                                <li>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
-                                            </ul>
-                                            <h4>&nbsp;What is Lorem Ipsum?</h4>
-                                            <ol>
-                                                <li>&nbsp;Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</li>
-                                                <li>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
-                                                <li>&nbsp;Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</li>
-                                                <li>But also the leap into electronic typesetting, remaining essentially unchanged.</li>
-                                                <li>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
-                                            </ol>
+                                        <div class="article__main-content articleContent" data-content-url="{{article.url}}">
+                                            {{article.content | _resizeImages({quality: 75}) | raw}}
                                         </div>
                                         <div class="clearfix"></div>
-                                        <div class="category__wrapper-content-tags mt-0">
-                                            <ul> </ul>
-                                        </div>
+                                        {% set keywords = article.keywords | split(',') %}
+                                        {% if keywords | length > 0 %}
+                                            <div class="category__wrapper-content-tags mt-0">
+                                                <ul>
+                                                    {% for keyword in keywords %}
+                                                        {% if keyword is defined and keyword is not empty %}
+                                                            <li><a href="{{_Blog.getUrl()}}/search?s={{keyword}}">{{keyword}}</a></li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                </ul>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
