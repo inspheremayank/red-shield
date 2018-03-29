@@ -155,7 +155,7 @@
                                                                     <div class="article__main-authorSlide-details">
                                                                         <div class="title">{{userName | raw}}</div>
                                                                         {% set userMeta = _MetaInfo.getMetaData('user', article.createdBy['guid'])%}
-                                                                        {% if userMeta.short_positionis defined and userMeta.short_position is not empty %}<div class="designation">{{userMeta.short_position}}</div>{% endif %}
+                                                                        {% if userMeta.short_position is defined and userMeta.short_position is not empty %}<div class="designation">{{userMeta.short_position}}</div>{% endif %}
                                                                     </div>
                                                                 </a>
                                                             </div>
