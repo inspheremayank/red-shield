@@ -78,7 +78,7 @@ HomeController.Listing = (function ($) {
                 articleGuid: articleGuid,
                 isSocialArticle: isSocial,
                 onSuccess: function (data) {
-                    $(obj).closest('article').parent('div').remove();
+                    $(obj).closest('div.card__view').remove();
                 },
                 beforeSend: function (obj) {
                 }
