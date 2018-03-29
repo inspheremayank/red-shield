@@ -181,13 +181,13 @@
                         font-family: $iconfont;
                         @include font-size(20);
                         line-height: 35px;
-                        color: #b7af98;
+                        color: $white;
                     }
                 }
             }
             &.twitter {
                 .card__view--content .social-icons {
-                    background-color: $zblack;
+                    background-color: $twitter;
                     &:before {
                         content: '\f099';
                     }
@@ -195,7 +195,7 @@
             }
             &.facebook {
                 .card__view--content .social-icons {
-                    background-color: $zblack;
+                    background-color: $facebook;
                     &:before {
                         content: '\f09a';
                     }
@@ -203,7 +203,7 @@
             }
             &.linkedin {
                 .card__view--content .social-icons {
-                    background-color: $zblack;
+                    background-color: $linkedin;
                     &:before {
                         content: '\f0e1';
                     }
@@ -214,12 +214,13 @@
                     background-color: $zblack;
                     &:before {
                         content: '\f16d';
+                        color: #b7af98;
                     }
                 }
             }
             &.youtube {
                 .card__view--content .social-icons {
-                    background-color: $zblack;
+                    background-color: $youtube;
                     &:before {
                         content: '\f167';
                     }
@@ -227,7 +228,7 @@
             }
             &.vimeo {
                 .card__view--content .social-icons {
-                    background-color: $zblack;
+                    background-color: $vimeo; 
                     &:before {
                         content: '\f27d';
                     }

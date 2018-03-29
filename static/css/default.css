@@ -1988,29 +1988,30 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
       font-size: 1.25rem;
       line-height: 1.5rem;
       line-height: 35px;
-      color: #b7af98; }
+      color: #ffffff; }
   .card__view .social.twitter .card__view--content .social-icons {
-    background-color: #000000; }
+    background-color: #00aeef; }
     .card__view .social.twitter .card__view--content .social-icons:before {
       content: '\f099'; }
   .card__view .social.facebook .card__view--content .social-icons {
-    background-color: #000000; }
+    background-color: #3b5998; }
     .card__view .social.facebook .card__view--content .social-icons:before {
       content: '\f09a'; }
   .card__view .social.linkedin .card__view--content .social-icons {
-    background-color: #000000; }
+    background-color: #1f7bc2; }
     .card__view .social.linkedin .card__view--content .social-icons:before {
       content: '\f0e1'; }
   .card__view .social.instagram .card__view--content .social-icons {
     background-color: #000000; }
     .card__view .social.instagram .card__view--content .social-icons:before {
-      content: '\f16d'; }
+      content: '\f16d';
+      color: #b7af98; }
   .card__view .social.youtube .card__view--content .social-icons {
-    background-color: #000000; }
+    background-color: #d62423; }
     .card__view .social.youtube .card__view--content .social-icons:before {
       content: '\f167'; }
   .card__view .social.vimeo .card__view--content .social-icons {
-    background-color: #000000; }
+    background-color: #5bc7ff; }
     .card__view .social.vimeo .card__view--content .social-icons:before {
       content: '\f27d'; }
   .card__view--items {
