@@ -11,7 +11,7 @@
     {% set mediaThumbImage = _Media.getMediaUrl(blogInfo.media['thumb'], 600, 600, {crop:"thumb", gravity:"face", type: "user"}) %}  
 {% endif%}
 {{this.registerJs("HomeController.listing();")}}
-{% set articlesArr = _Blog.getBlogFeed({'limit': 4, 'offset': 0}) %}
+{% set articlesArr = _Blog.getBlogFeed({'limit': 21, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
 <div class="page__content-main">
     <div class="container-fluid">

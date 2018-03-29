@@ -1,20 +1,30 @@
 {% set network = _Network.getNetworkData() %}
-{{set(this,'title',(network.title))}}
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
 
-{% set articlesArr = _Blog.getBlogFeed({'limit': 4, 'offset': 0}) %}
+{% set blogInfo = _Blog.getBlog() %}
+{% set mediaCoverImage = ''%}
+{% set mediaThumbImage = ''%}
+{%if blogInfo.media['cover']['id'] is defined and blogInfo.media['cover']['id'] is not empty%}
+    {% set mediaCoverImage = _Media.getMediaUrl(blogInfo.media['cover'], 1900, 1900, {crop: 'limit'}) %}  
+{% endif%}
+{%if blogInfo.media['thumb']['id'] is defined and blogInfo.media['thumb']['id'] is not empty%}
+    {% set mediaThumbImage = _Media.getMediaUrl(blogInfo.media['thumb'], 600, 600, {crop:"thumb", gravity:"face", type: "user"}) %}  
+{% endif%}
+{{this.registerJs("HomeController.listing();")}}
+{% set articlesArr = _Blog.getBlogFeed({'limit': 21, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
 <div class="page__content-main">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 px-0">
                 <div class="blog__wrapper">
-                    <div class="blog__wrapper-banner blog__wrapper-banner--withoutImage image-covered">
+                    <div class="blog__wrapper-banner blog__wrapper-banner--withoutImage image-covered" {% if mediaCoverImage is not empty %}style="background-image: url('{{mediaCoverImage}}')"{% endif %}>
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="blog__wrapper-banner-content">
-                                        <h1>Section title</h1>
-                                        <p>Section description</p>
+                                        <h1>{{blogInfo.title}}</h1>
+                                        <p>{{blogInfo.shortDescription}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -26,7 +36,8 @@
     </div>
     <div class="container">
         <div class="row">
-            {% for i in 1..3 %}
+            {% for article in articles %}
+                {% set i = loop.index0 %}
                 {% if articles[i] is defined %}
                     {{this.render('partials/_single-article.twig', {network: network, article: articles[i], 'position': i+1, class: 'col-md-4 card__view-third'}) | raw}} 
                 {% endif %}
