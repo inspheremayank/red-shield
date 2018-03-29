@@ -1,0 +1,18 @@
+{{ set(this, 'title', page.title | raw) }}
+{% set network = _Network.getNetworkData() %}
+{% set featuredMedia = '' %}
+{% if page.media['id'] is defined and page.media['id'] is not empty %}
+    {% set featuredMedia = _Media.getMediaUrl(page.media, page.media['width'], 400, {crop: 'fill'})  %}
+{% endif %}
+{% set isPage = 'content_box_page' in _Page.getBodyClass() %}
+{% set staticClass = 'static-page' %}
+{% if isPage %}
+    {% set staticClass = '' %}
+{%endif%}
+<div class="{{staticClass}} ">
+    <div class="static-page__container">
+        <div class="static-page__body is-wrapper">
+            {{page.content | raw}}
+        </div>
+    </div>
+</div> 
