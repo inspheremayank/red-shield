@@ -1,5 +1,63 @@
 /* blog section
 ================================ */
+
+.blog {
+    &__wrapper {
+        &-banner { 
+            height: 500px;
+            position: relative;
+            margin-bottom: 25px;
+            background-color: $blue; 
+            &:before { 
+                content: '';
+                position: absolute;
+                z-index: 10;
+                @include linear-gradient($zblack, rgba($zblack,0.43), rgba($zblack,0.8));
+                @include size($viewportSize);
+                top: 0;
+                left: 0;
+                @include opacity(0.5);
+            }
+            &-content {
+                position: relative;
+                z-index: 11;
+                color: $white;
+                max-width: 450px;
+                @include flexbox();
+                @include flex-direction(column,vertical);
+                @include justify-content(flex-end);
+                height: 500px;
+                h3, h1 {
+                    @include font-size(36);
+                    font-family: $primary-fonts-regular; 
+                    margin-bottom: 10px;
+                }
+                p {
+                    @include font-size(20);
+                    line-height: 1.5;
+                    margin-bottom: 50px;
+                }
+                .button {
+                    margin-bottom: 40px;
+                    max-width: 30%;
+                }
+            }
+            .container, .row {
+                height: $viewportSize;
+            }
+            &--withoutImage {
+                height: inherit;
+                min-height: 300px;
+                .blog__wrapper-banner-content {
+                    min-height: 300px;
+                    height: inherit;
+                    @include padding-top(150);
+                }
+            }
+        }
+    }
+}
+
 .user {
     &__profile {
         &-banner {

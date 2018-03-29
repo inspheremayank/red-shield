@@ -2831,6 +2831,78 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
 
 /* blog section
 ================================ */
+.blog__wrapper-banner {
+  height: 500px;
+  position: relative;
+  margin-bottom: 25px;
+  background-color: #11466b; }
+  .blog__wrapper-banner:before {
+    content: '';
+    position: absolute;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.43);
+    /* Old browsers */
+    background: -moz-linear-gradient(legacy-direction(#000000), rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.8));
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(legacy-direction(#000000), rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.8));
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(#000000, rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.8));
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr="#000000", EndColorStr="rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.8)");
+    /* IE6-9 */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    filter: alpha(opacity=50); }
+  .blog__wrapper-banner-content {
+    position: relative;
+    z-index: 11;
+    color: #ffffff;
+    max-width: 450px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-box-orient: vertical;
+    box-orient: vertical;
+    -webkit-justify-content: flex-end;
+    -moz-justify-content: flex-end;
+    -ms-justify-content: flex-end;
+    justify-content: flex-end;
+    -ms-flex-pack: flex-end;
+    height: 500px; }
+    .blog__wrapper-banner-content h3, .blog__wrapper-banner-content h1 {
+      font-size: 2.25rem;
+      line-height: 2.7rem;
+      font-family: "LatoRegular", Arial, sans-serif;
+      margin-bottom: 10px; }
+    .blog__wrapper-banner-content p {
+      font-size: 1.25rem;
+      line-height: 1.5rem;
+      line-height: 1.5;
+      margin-bottom: 50px; }
+    .blog__wrapper-banner-content .button {
+      margin-bottom: 40px;
+      max-width: 30%; }
+  .blog__wrapper-banner .container, .blog__wrapper-banner .row {
+    height: 100%; }
+  .blog__wrapper-banner--withoutImage {
+    height: inherit;
+    min-height: 300px; }
+    .blog__wrapper-banner--withoutImage .blog__wrapper-banner-content {
+      min-height: 300px;
+      height: inherit;
+      padding-top: 9.375rem; }
+
 .user__profile-banner {
   height: 500px;
   position: relative;
