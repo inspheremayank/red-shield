@@ -13,6 +13,19 @@
                 }
             }
         }
+        &.article__main-titleBand-withoutImage {
+            .article__slide {
+                min-height: 200px;
+            }
+            .article__main {
+                margin-top: 50px; 
+            }
+            .article__main-titleBand-content.effects {
+                &:after, &:before {
+                    bottom: 100px; 
+                }
+            }
+        }
     }
     &__slide {
         background: $blue none repeat scroll 0 0; 

@@ -25,6 +25,7 @@
                 &--items {
                     margin: 0 20px; 
                     @include font-size(18);
+                    @extend .font-regular;
                     @media #{$media-desktop} {
                         @include font-size(16);
                         margin: 0 10px;

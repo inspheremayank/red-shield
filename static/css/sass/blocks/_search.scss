@@ -80,6 +80,7 @@
         p {
             @include font-size(20);
             letter-spacing: 1px;
+            color: $white;
             &.large {
                 @include font-size(24);
             }
@@ -108,5 +109,5 @@
     } 
 }
 .error { 
-    background: darken($white, 5%) none repeat scroll 0 0;
+    background: $blue none repeat scroll 0 0;
 }

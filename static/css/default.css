@@ -178,7 +178,7 @@ h4, h5, h6 {
 .font-light, .banner__section-content h1, .cta-wrap__subscribe .cta-wrap__main--title, .cta-wrap__about .cta-wrap__main--title, .cta-wrap__learning .cta-wrap__main--title, .card__view-full.single .card__view--content .content__section-heading {
   font-family: "LatoLight", Arial, sans-serif; }
 
-.font-regular, .table--customized tbody td span, .cta-wrap__subscribe .cta-wrap__main--description, .cta-wrap__about .cta-wrap__main--description, .cta-wrap__learning .cta-wrap__main--description, .card__view-full.single .card__view--content .content__section-description {
+.font-regular, .table--customized tbody td span, .footer-main__container__listing--items, .cta-wrap__subscribe .cta-wrap__main--description, .cta-wrap__about .cta-wrap__main--description, .cta-wrap__learning .cta-wrap__main--description, .card__view-full.single .card__view--content .content__section-description {
   font-family: "LatoRegular", Arial, sans-serif; }
 
 .font-bold, .table--customized thead th, .table--customized tbody td, .cta-wrap__main--description {
@@ -1146,6 +1146,12 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
     bottom: 10px !important; }
   .article__wrapper.article__main-titleBand-video .article__main-titleBand-content.effects:after, .article__wrapper.article__main-titleBand-video .article__main-titleBand-content.effects:before {
     display: none; }
+  .article__wrapper.article__main-titleBand-withoutImage .article__slide {
+    min-height: 200px; }
+  .article__wrapper.article__main-titleBand-withoutImage .article__main {
+    margin-top: 50px; }
+  .article__wrapper.article__main-titleBand-withoutImage .article__main-titleBand-content.effects:after, .article__wrapper.article__main-titleBand-withoutImage .article__main-titleBand-content.effects:before {
+    bottom: 100px; }
 .article__slide {
   background: #11466b none repeat scroll 0 0;
   color: #ffffff;
@@ -2797,7 +2803,8 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
     .search__error p, .search__content p, .error__error p, .error__content p {
       font-size: 1.25rem;
       line-height: 1.5rem;
-      letter-spacing: 1px; }
+      letter-spacing: 1px;
+      color: #ffffff; }
       .search__error p.large, .search__content p.large, .error__error p.large, .error__content p.large {
         font-size: 1.5rem;
         line-height: 1.8rem; }
@@ -2818,7 +2825,7 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
       margin-top: 15px; } }
 
 .error {
-  background: #f2f2f2 none repeat scroll 0 0; }
+  background: #11466b none repeat scroll 0 0; }
 
 /* Dependencies Breakup section
 ================================ */
