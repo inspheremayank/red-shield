@@ -1,0 +1,235 @@
+/* blog section
+================================ */
+.user {
+    &__profile {
+        &-banner {
+            height: 500px;
+            position: relative;
+            margin-bottom: 40px;
+            background-color: $blue;
+            &:before {
+                content: '';
+                position: absolute;
+                z-index: 10;
+                background-color: rgba($zblack,0.6); 
+                top: 0;
+                left: 0;
+                @include size($viewportSize);
+                @include opacity(1);
+            }
+        }
+        &--withoutImage {
+            min-height: 300px;
+            height: inherit;
+            .user__profile-details {
+                @include padding(150 10 40);
+            }
+        }
+        &-details {
+            position: relative;
+            z-index: 11;
+            color: $white;
+            @include flexbox();
+            @include justify-content(flex-end);
+            @include align-items(center); 
+            @include flex-direction(column,vertical);
+            height: $viewportSize;
+            max-width: 600px;
+            text-align: center; 
+            margin: 0 auto;
+            @include padding(40 10);
+            figure {
+                @include size(140px);
+                margin-bottom: 15px;
+                img {
+                    @include size($viewportSize);
+                    object-fit: cover;
+                }
+            }
+            h3, h1 {
+                @include font-size(35.2);
+                letter-spacing: 2px;
+                margin-bottom: 5px;
+                font-family: $primary-fonts-bold;
+            }
+            p {
+                @include font-size(17);
+                line-height: 1.83;
+                letter-spacing: 1px;
+                color: darken($white, 5%);
+                margin-bottom: 30px;
+                width: $viewportSize;
+            }
+            ul  {
+                /* margin-bottom: 30px; */
+                li {
+                    display: inline-block;
+                    + li {
+                        margin-left: 20px;
+                    }
+                    a {
+                        @include font-size(22);
+                        @include transition(all 0.3s ease);
+                    }
+                    &.twitter {
+                        a {
+                            &:hover, &:focus {
+                                color: $twitter;
+                            }
+                        }
+                    }
+                    &.instagram {
+                        a {
+                            &:hover, &:focus {
+                                color: $instagram;
+                            }
+                        }
+                    }
+                    &.youtube {
+                        a {
+                            &:hover, &:focus {
+                                color: $youtube;
+                            }
+                        }
+                    } 
+                    &.message {
+                        a {
+                            &:hover, &:focus {
+                                color: $blue;
+                            }
+                        }
+                    }
+                    &.linkedin {
+                        a {
+                            &:hover, &:focus {
+                                color: $linkedin;
+                            }
+                        }
+                    }
+                }
+            }
+            .button {
+                margin-bottom: 40px;
+                @include font-size(16);
+                letter-spacing: 1px;
+            }
+        }
+        &-content {
+            margin-bottom: 30px;
+            overflow: hidden;
+            @media #{$media-ipadSmall} {
+                margin-bottom: 0px; 
+            }
+            h3 {
+                @include font-size(24); 
+                letter-spacing: 2px;
+                font-family: $primary-fonts-regular;
+                border-bottom: 1px solid $borderlight;
+                margin-bottom: 15px; 
+                @include padding-bottom(5);
+            }
+            p {
+                @include font-size();
+                letter-spacing: 1px;
+                line-height: 1.83;
+                font-family: $primary-fonts-regular;
+                span {
+                    font-family: $primary-fonts-regular;
+                }
+                + h3 {
+                    margin-top: 30px;
+                }
+            }
+            ul {
+                margin-bottom: 30px;
+                li {
+                    &:before {
+                        content: '-';
+                        margin-left: -20px;
+                        margin-right: 10px;
+                    }
+                    @include font-size(16); 
+                    letter-spacing: 1px;
+                    line-height: 1.5;
+                    margin-left: 20px;
+                    font-family: $primary-fonts-regular;
+                    + li {
+                        margin-top: 15px;
+                    }
+                }
+            }
+        }
+        &-userInfo {
+            height: 400px;
+            margin-top: 45px;
+            position: relative;
+            width: $viewportSize;
+            @media #{$media-ipadSmall} {
+                max-width: 400px;
+                margin: 25px auto;
+                
+            }
+            &:before {
+                content:'';
+                position: absolute;
+                z-index: 10;
+                @include size($viewportSize);
+                @include linear-gradient(rgba($zblack,0) 50%, rgba($zblack,1)); 
+            }
+            .content-section {
+                @include flexbox();
+                flex-direction: column;
+                justify-content: flex-end;
+                height: $viewportSize;
+                margin: 0 auto;
+                max-width: 300px;
+                width: 90%;
+                position: relative;
+                z-index: 11;
+                color: $white;
+                h4 {
+                    @include font-size(35.2); 
+                    letter-spacing: 2px;
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+                h5 {
+                    text-align: center;
+                    margin-bottom: 15px;
+                    @include font-size();
+                    letter-spacing: 1px;
+                }
+                p {
+                    margin-bottom: 10px;
+                    span { 
+                        margin-right: 8px;
+                        @include font-size(18); 
+                    }
+                    a {
+                        border-bottom: 1px solid $transparent;
+                        &:hover, &:focus {
+                            border-color: $white;
+                        }
+                    }
+                }
+                .button {
+                    width: 80%;
+                    margin: 15px auto 30px;
+                    font-family: $primary-fonts-regular;
+                    @include font-size(18);
+                    line-height: 1;
+                }
+            }
+        }
+        &-userAditional {
+            width: 80%;
+            margin: 30px auto 50px; 
+            p {
+                @include font-size(12);
+            } 
+        }
+    }
+}
+
+
+/* End user info section */

@@ -115,12 +115,15 @@
         }
         .without-image {
             .card__view--content {
-                background-color: darken($white,2%);
+                background-color: $blue;
                 figure {
                     background-image: none !important;
                 }
                 .content__section {
                     height: $viewportSize;
+                    &-block {
+                        height: $viewportSize;
+                    }
                 }
             }
         }
