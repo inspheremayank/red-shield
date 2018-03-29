@@ -88,11 +88,11 @@ HomeController.Listing = (function ($) {
 
     var bindSocialPostPopup = function () {
 
-        $('#content').on('click', 'div.admin-actions__action--edit', function (e) {
+        $('body').on('click', 'div.admin-actions__action--edit', function (e) {
             e.stopPropagation();
         });
 
-        $('#content').on('click', 'a.socialCard', function (e) {
+        $('body').on('click', 'a.socialCard', function (e) {
             e.preventDefault();
             e.stopPropagation();
             var blogGuid = $(this).data('blog-guid');

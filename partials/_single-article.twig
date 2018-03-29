@@ -105,7 +105,7 @@
     <div class="card__view {{class}}">
         <div class="{{mediaClass}} {{videoClass}} swap {{socialClass}}" data-blog-guid="{{social.blog['guid']}}" data-id="{{article.socialId}}" data-position="{{position}}" data-social="1" data-article-image="{{social.media['path']}}" data-article-text="{{Helper.htmlToText(social.content, -1) | raw | escape('html')}}" data-user-image="{{social.user['media']['path']}}" data-user-name="{{ social.user['name'] | lower }}">
             <!-- Make these classes dynamic 'social twitter/linkedin/vimeo/youtube/instagram' 'video' 'without-image' -->
-            <a href="{{ social.url }}" class="card__view--items">
+            <a href="{{ social.url }}" class="card__view--items socialCard" data-blog-guid="{{social.blog['guid']}}" data-guid="{{social.guid}}">
                 <div class="card__view--content">
                     <div class="mask"></div>
                     {% if social.media | length > 0 and  social.media['path'] is not empty %}
