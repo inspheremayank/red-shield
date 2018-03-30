@@ -1,14 +1,16 @@
-<div class="footer-main__container__social">
-    {% if blogInfo.social['facebook'] is not empty %}
-        <a href="{{blogInfo.social['facebook']}}" target="_blank"><i class="fa fa-facebook-official"></i></a>
-    {% endif %}
-    {% if blogInfo.social['twitter'] is not empty %}
-        <a href="{{blogInfo.social['twitter']}}" target="_blank"><i class="fa fa-twitter"></i></a>
-    {% endif %}
-    {% if blogInfo.social['instagram'] is not empty %}
-        <a href="{{blogInfo.social['instagram']}}" target="_blank"><i class="fa fa-instagram"></i></a>
-    {% endif %}
-    {% if blogInfo.social['youtube'] is not empty %}
-        <a href="{{blogInfo.social['youtube']}}" target="_blank"><i class="fa fa-youtube-play"></i></a>
-    {% endif %}
-</div>
+{% if blogInfo.social['facebook'] is not empty or blogInfo.social['twitter'] is not empty or blogInfo.social['instagram'] is not empty or blogInfo.social['youtube'] is not empty %}
+    <div class="footer-main__container__social">
+        {% if blogInfo.social['facebook'] is not empty %}
+            <a href="{{blogInfo.social['facebook']}}" target="_blank"><i class="fa fa-facebook-official"></i></a>
+        {% endif %}
+        {% if blogInfo.social['twitter'] is not empty %}
+            <a href="{{blogInfo.social['twitter']}}" target="_blank"><i class="fa fa-twitter"></i></a>
+        {% endif %}
+        {% if blogInfo.social['instagram'] is not empty %}
+            <a href="{{blogInfo.social['instagram']}}" target="_blank"><i class="fa fa-instagram"></i></a>
+        {% endif %}
+        {% if blogInfo.social['youtube'] is not empty %}
+            <a href="{{blogInfo.social['youtube']}}" target="_blank"><i class="fa fa-youtube-play"></i></a>
+        {% endif %}
+    </div>
+{% endif %}

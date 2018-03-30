@@ -17,6 +17,7 @@
             }
             &__listing {
                 @include flexbox();
+                width: $viewportSize;
                 @media #{$media-ipadSmall} {
                     margin: 15px 0;
                     @include flex-direction(column,vertical);

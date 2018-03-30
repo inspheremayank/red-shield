@@ -874,7 +874,8 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
       display: -webkit-flex;
       display: -moz-flex;
       display: -ms-flexbox;
-      display: flex; }
+      display: flex;
+      width: 100%; }
       @media screen and (max-width: 767px) {
         .footer-main__container__listing {
           margin: 15px 0;
