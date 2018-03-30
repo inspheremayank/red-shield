@@ -30,6 +30,19 @@ $(document).ready(function () {
         lines: 5
     });
 });
+$('.article__main-content figure').each(function () {
+    if ($(this).attr('style') !== undefined) {
+        
+    } else {
+        $(this).after('<div class="clearfix"></div>');
+    }
+});
+
+$('.article__main-content figure figcaption').each(function(){
+    if (!$(this).text().trim().length > 0) {
+        $(this).addClass("d-none");
+    }
+});
 
 var slider = $('.mainSlide').slick({
     slidesToShow: 1,
