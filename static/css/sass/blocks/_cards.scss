@@ -48,6 +48,7 @@
                     @include font-size(16);
                     max-height: 150px;
                     overflow: hidden;
+                    line-height: 1.5;
                 }
                 &-button {
                     display: none;
@@ -115,14 +116,43 @@
         }
         .without-image {
             .card__view--content {
-                background-color: $blue;
+                /* background-color: $blue; */
+                @include box-shadow(0 0 3px 0 rgba($zblack,.05));
+                border: 1px solid darken($white,4%);
                 figure {
                     background-image: none !important;
                 }
                 .content__section {
                     height: $viewportSize;
+                    background: none repeat scroll 0 0;
                     &-block {
                         height: $viewportSize;
+                    }
+                    /* &-heading, &-userInfo-content, &-description {
+                        color: $white;
+                    } */
+                }
+            }
+        }
+        .excerpt-slideUp {
+            .card__view--content {
+                .content__section {
+                    min-height: inherit;
+                    &-description {
+                        position: absolute;
+                        -webkit-transform: translate3d(0,20px,0);
+                        -moz-transform: translate3d(0,20px,0);
+                        -ms-transform: translate3d(0,20px,0);
+                        transform: translate3d(0,20px,0);
+                        left: 0;
+                        width: $viewportSize;
+                        @include padding(0 15);
+                        &.active {
+                            -webkit-transform: translate3d(0,0,0);
+                            -moz-transform: translate3d(0,0,0);
+                            -ms-transform: translate3d(0,0,0);
+                            transform: translate3d(0,0,0);
+                        }
                     }
                 }
             }
@@ -149,6 +179,36 @@
                         left: 54%;
                         @include translate(-50%,-50%);
                         cursor: pointer;
+                    }
+                }
+                .mask {
+                    @include size($viewportSize);
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    z-index: 11;
+                    background: rgba($white,0.6) none repeat scroll 0 0; 
+                    @include opacity(0);
+                    @include transition(all 0.5s ease);
+                }
+                .video-play {
+                    @include transition(all 0.5s ease);
+                }
+            }
+            .card__view--items {
+                &:hover, &:focus {
+                    .card__view--content {
+                        .mask {
+                            @include opacity(1);
+                        }
+                        .video-play {
+                            @include size(50px);
+                            border-color: $red;
+                            &:after {
+                                color: $red;
+                                @include font-size(25);
+                            }
+                        }
                     }
                 }
             }

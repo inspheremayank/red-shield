@@ -4,8 +4,10 @@
     {% set videoClass = '' %}
     {% set mediaVideoUrl = '' %}
     {% set cardImageClass = 'without-image' %}
+    {% set cardWithImageClass = '' %}
     {% if article.featuredMedia | length > 0 and article.featuredMedia.id is not empty %}
         {% set cardImageClass = '' %}
+        {% set cardWithImageClass = 'excerpt-slideUp' %}
         {% set articleImg = _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': crop, 'gravity': gravity, 'quality': '75'} ) %}
         {% set bgImage = "background-image: url('"~articleImg~"');" %}
         {% if article.featuredMedia['type'] == 'video' %}
@@ -17,7 +19,7 @@
         {% set blogGuid = article.blog.guid %}
     {% endif %}
     <div class="card__view {{class}}">
-        <div class="{{cardImageClass}} {{videoClass}} swap" data-blog-guid="{{blogGuid}}" data-id="{{article.articleId}}" data-position="{{position}}" data-social="0" data-article-image="{{articleImg}}" data-article-text="{{Helper.htmlToText(article.title, 100) | raw}}"><!-- Make these classes dynamic 'social twitter/linkedin/vimeo/youtube/instagram' 'video' 'without-image' -->
+        <div class="{{cardImageClass}} {{cardWithImageClass}} {{videoClass}} swap" data-blog-guid="{{blogGuid}}" data-id="{{article.articleId}}" data-position="{{position}}" data-social="0" data-article-image="{{articleImg}}" data-article-text="{{Helper.htmlToText(article.title, 100) | raw}}"><!-- Make these classes dynamic 'social twitter/linkedin/vimeo/youtube/instagram' 'video' 'without-image' -->
             <a href="{{article.url}}" class="card__view--items">
                 <div class="card__view--content">
                     <div class="mask"></div>
