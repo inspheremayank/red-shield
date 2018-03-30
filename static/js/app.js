@@ -41,7 +41,35 @@ $('.article__main-content figure figcaption').each(function(){
         $(this).addClass("d-none");
     }
 });
-
+$(".regular").slick({
+    dots: false,
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    responsive: [
+        {
+            breakpoint: 1199,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3
+            }
+        },
+        {
+            breakpoint: 880,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2
+            }
+        },
+        {
+            breakpoint: 585,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+        }
+    ]
+});
 var slider = $('.mainSlide').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -49,7 +77,16 @@ var slider = $('.mainSlide').slick({
     autoplaySpeed: 5000,
     infinite: true,
     arrows: false,
-    dots: true
+    dots: true,
+    responsive: [
+    {
+      breakpoint: 767,
+      settings: {
+        dots: false,
+        arrows: true
+      }
+    }
+    ]
 });
 /***********************************/
 /* Initalise WOW Js */

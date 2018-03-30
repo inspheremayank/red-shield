@@ -1,0 +1,172 @@
+{# Article Twig template #} 
+{{ set(this, 'title', article.title) }}
+
+{% set network = _Network.getNetworkData() %}
+<div class="page__content-main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 px-0">
+                <div class="article__wrapper">
+                    <div class="article__slide">
+                        {% if article.media|length %}
+                            <amp-carousel width="400" height="300" layout="responsive" type="slides" autoplay="" loop="">
+                                {% for media in article.media %}
+                                    {% if media.type == 'video' %} 
+                                        {% set mediaUrl = "" %}
+                                        {% if media.isSystemVideo == 'TRUE'%}
+                                            {% set mediaUrl = media.video_path  %}
+                                            <div class="video-player">
+                                                <amp-video id="myVideo" controls width="400" height="300" layout="responsive" src="{{mediaUrl}}"></amp-video>
+
+                                                <div id="myOverlay" class="click-to-play-overlay">
+                                                    <div class="play-icon" role="button" tabindex="0" on="tap:myOverlay.hide, myVideo.play"></div>
+                                                    <amp-img class="poster-image" layout="fill" src="{{media.path}}"></amp-img>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            {% if media.source == 'youtube' %}
+                                                <amp-youtube data-videoid="{{media.videoId}}" layout="responsive" width="400" height="300"></amp-youtube>
+                                                {% else %}
+                                                <amp-vimeo data-videoid="{{media.videoId}}" layout="responsive" width="400" height="300"></amp-vimeo>
+                                                {% endif %}
+                                            {% endif %}                   
+                                        {% else %}
+                                        <figure>
+                                            <amp-img src="{{media.path}}" width="400" height="300" class="" layout="responsive"></amp-img>
+                                        </figure>
+                                    {% endif %}
+                                {% endfor %}
+                            </amp-carousel>
+                        {% endif %}
+                        <div class="article__userInfo">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="article__userInfo-content text-center">
+                                            <div class="article__userInfo-date">Published {{article.publishedDate}}</div>
+                                            <h1 class="article__userInfo-title">{{article.title}}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="article__main">    
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12 col-md-10 m-auto">
+                                                <div class="article__main-authorSlide">
+                                                    <div class="author-carousel regular slider">
+                                                        <amp-carousel width="300" height="100" layout="responsive" type="slides" autoplay="" loop="">
+                                                        <div class="article__main-authorSlide-content">
+                                                            <figure class="image-covered rounded-circle">
+                                                                <amp-img src="{{_Media.getMediaUrl(article.createdBy['media'], 100, 100, {crop:'thumb', radius: 'max', gravity:'face',type:'user'})}}" class="" width="100" height="100" layout="responsive"></amp-img>
+                                                            </figure>
+                                                                {% set userName = article.createdBy['displayName'] | replace({' ': '<br />'})|title %}
+                                                            <div class="title">{{userName | raw}}</div>
+                                                            {% set userMeta = _MetaInfo.getMetaData('user', article.createdBy['guid'])%}
+                                                            <div class="designation">{{userMeta.short_position}}</div>
+                                                        </div>
+                                                        {% if article.createdBy['coauthors'] | length > 0%}
+                                                            {% for author in article.createdBy['coauthors'] %}
+                                                                <div class="article__main-authorSlide-content">
+                                                                    <figure class="image-covered rounded-circle">
+                                                                        <amp-img src="{{_Media.getMediaUrl(author['media'], 100, 100, {crop:'thumb', radius: 'max', gravity:'face',type:'user'})}}" class="" width="100" height="100" layout="responsive"></amp-img>
+                                                                    </figure>
+                                                                    <div class="title">{{author['displayName'] | capitalize}}</div>
+                                                                    {% set userMeta = _MetaInfo.getMetaData('user', author['guid'])%}
+                                                                    <div class="designation">{{userMeta.short_position}}</div>
+                                                                </div>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                        </amp-carousel>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="article__main-wrapper">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="article__main-social" id="socialFix">
+                                                        <ul>
+                                                            {% set subject = article.title~' '~_Network.getNetworkTitle()%}
+                                                            {% set body = 'I thought you would find this article interesting'|url_encode%}
+                                                            {% set body = body ~'%0D%0A%0D%0A' ~ article.url%}
+                                                            <li>
+                                                                <a href="mailto:?subject={{subject}}&body={{body}}" target="_blank">
+                                                                    <span class="fa fa-envelope"></span>
+                                                                </a>
+
+                                                            </li>
+                                                            <li>
+                                                                <a href="http://www.facebook.com/sharer/sharer.php?u={{article.url}}" target="_blank">
+                                                                    <span class="fa fa-facebook"></span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="http://twitter.com/intent/tweet?status={{article.url}}" target="_blank">
+                                                                    <span class="fa fa-twitter"></span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="https://www.linkedin.com/cws/share?url={{article.url}}" target="_blank">
+                                                                    <span class="fa fa-linkedin"></span>
+                                                                </a>
+                                                            </li>                                           
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-10 m-auto">
+                                                    <div class="article__main-content">{{article.content | raw}}</div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="article__main-author-wrapper">
+                                                        <div class="section__head with-border">
+                                                            <h3>About the Authors</h3>
+                                                        </div>
+                                                        <div class="author__listing">
+                                                            <ul>
+                                                                <li>
+                                                                    <figure>
+                                                                        <amp-img src="{{_Media.getMediaUrl(article.createdBy['media'], 175, 145, {crop:'thumb', gravity:'face',type:'user'})}}" class="" width="110" height="110" layout="responsive"></amp-img>
+                                                                    </figure>
+                                                                    {% set userMeta = _MetaInfo.getMetaData('user', article.createdBy['guid'])%}
+                                                                    <div class="author__listing-content">
+                                                                        <h4>{{article.createdBy['displayName'] | capitalize}}</h4>
+                                                                        <h5>{{userMeta.long_position}}</h5>
+                                                                        <p>{{article.createdBy['bio'] | raw}}</p>
+                                                                    </div>
+                                                                </li>
+                                                                {% if article.createdBy['coauthors'] | length > 0%}
+                                                                    {% for author in article.createdBy['coauthors'] %}
+                                                                        <li>
+                                                                            <figure>
+                                                                                <amp-img src="{{_Media.getMediaUrl(author['media'], 175, 145, {crop:'thumb', gravity:'face',type:'user'})}}" class="" width="110" height="110" layout="responsive"></amp-img>
+                                                                            </figure>
+                                                                            <div class="author__listing-content">
+                                                                                <h4>{{author['displayName'] | capitalize}}</h4>
+                                                                                {% set userMeta = _MetaInfo.getMetaData('user', author['guid'])%}
+                                                                                <h5>{{userMeta.long_position}}</h5>
+                                                                                <p>{{author['bio'] | raw}}</p>
+                                                                            </div>
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

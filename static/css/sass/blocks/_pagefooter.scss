@@ -27,12 +27,16 @@
                     margin: 0 20px; 
                     @include font-size(18);
                     @extend .font-regular;
+                    @include transition(all 0.3s ease);
                     @media #{$media-desktop} {
                         @include font-size(16);
                         margin: 0 10px;
                     }
                     @media #{$media-ipadSmall} {
                         margin: 10px 0px;
+                    }
+                    &:hover, &:focus {
+                        color: $red;
                     }
                 }
             }

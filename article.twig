@@ -140,7 +140,14 @@
                                         <div class="article__main-titleBand-content effects">
                                             <div class="article__userInfo">
                                                 <div class="article__userInfo-content">
-                                                    <div class="article__userInfo-date"> <span>Published {{article.publishedDate}}</span></div>
+                                                    <div class="article__userInfo-detailed {% if article.userHasEditArticleAccess is defined and article.userHasEditArticleAccess == 1 %} article__userInfo-detailed--justify-between {% endif %}"> 
+                                                        <div class="article__userInfo-date">
+                                                            <span>Published {{article.publishedDate}}</span>
+                                                        </div>
+                                                        {% if article.userHasEditArticleAccess is defined and article.userHasEditArticleAccess == 1 %}
+                                                            <a class="article__userInfo-button button button__bordered button__bordered--grey button__icon--left" href="{{article.editUrl}}" target="_blank"><span class="fa fa-pencil"></span>Edit Article</a>
+                                                        {% endif %}
+                                                    </div>
                                                     <h1 class="article__userInfo-title text-center">{{article.title}}</h1> 
                                                 </div>
                                             </div>

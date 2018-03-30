@@ -1,0 +1,56 @@
+<header class="header header__fixed">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="header__main d-flex">
+                    {% set logoUrl = network.networkLogoLinkUrl %}
+                    {% set mainLogo = network.templatePath~'/static/images/logo.svg' %}
+                    {% set logoUrl = network.networkLogoLinkUrl %}
+                    {% if network.logoMedia | length > 0 %}
+                        {% set mainLogo2 = _Media.getMediaUrl(network.logoMedia, 177, 65, {'crop': 'limit'} )%}
+                    {% endif %}
+                    <aside class="header__main-left">
+                        <div class="header__main-logo">
+                            <a href="{{logoUrl}}">
+                                <amp-img src="{{mainLogo}}" class="logo__main" width="95" height="35"></amp-img>
+                            </a>
+                        </div>
+                    </aside>
+                    <aside class="header__main-center"><a href="/">Lens</a></aside>
+                    <button class="header-icon-1 menu-bar" on='tap:sidebar.open'><i class="fa fa-navicon"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="header-clear"></div>
+<amp-sidebar id="sidebar" class="standalone-menu" layout="nodisplay" side="right">
+    <div class="close__button" on='tap:sidebar.close' role="1" tabindex="1">
+        <span class="fa fa-close"></span>
+    </div>
+    <div class="navigation__main-menu">
+        <form action="{{ url('search') }}" method="get" target="_top"  class="headerSearchForm" id="headerSearchForm">
+            <div class="navigation__search desktop-search">
+                <input class="form-control desktopSearch" id="TopSearch" required name="s" type="text" autocomplete="off" placeholder="Search here" />
+                <button class="button"><i class="fa fa-search"></i></button>
+            </div>
+        </form>
+        {% set menuItems = blogData.blogHeaderMenu %}
+        {% for i in 0..4 %}
+            {% if menuItems[i] is defined %}
+                {% set hasChildren = menuItems[i].children is defined and menuItems[i].children | length > 0 ? true : false %} 
+
+                {% if hasChildren %}
+                    {% set class = (i%2 != 0) ? "small-text" : "" %}
+                    <ul class="{{class}}">
+                        {% for childItem in menuItems[i].children%}
+                            {% set externalClass = (childItem.isExternal) ? 'external-link' : '' %}
+                            {% set name = ((childItem.label is empty) ? ((childItem.pageTitle is empty)? childItem.blogTitle : childItem.pageTitle) : childItem.label) %}
+                            <li><a href="{{childItem.link |raw}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>{{ name }}</a></li>
+                            {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</amp-sidebar>
