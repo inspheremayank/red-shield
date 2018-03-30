@@ -8,6 +8,11 @@
     {% if article.featuredMedia | length > 0 and article.featuredMedia.id is not empty %}
         {% set cardImageClass = '' %}
         {% set cardWithImageClass = 'excerpt-slideUp' %}
+        {% set isSingle = 'single' in class %}
+        {% if isSingle %}
+            {% set cardWithImageClass = '' %}
+        {% endif %}
+        
         {% set articleImg = _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, {'crop': crop, 'gravity': gravity, 'quality': '75'} ) %}
         {% set bgImage = "background-image: url('"~articleImg~"');" %}
         {% if article.featuredMedia['type'] == 'video' %}

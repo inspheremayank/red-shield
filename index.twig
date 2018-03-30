@@ -2,7 +2,7 @@
 {% set network = _Network.getNetworkData() %}
 {{set(this,'title',(network.title))}}
 
-{% set articlesArr = _Blog.getBlogFeed({'limit': 4, 'offset': 0}) %}
+{% set articlesArr = _Blog.getBlogFeed({'limit': 21, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
 
 {#{{_AppHelper.printArray(blogList)}}#}
@@ -24,7 +24,27 @@
             </div>
 
         </div>
-                
+        {{ this.render('partials/_contribute_red_shield.twig', {network:network, keyword: 'contribute_red_shield'}) | raw }}
+            
+        <div class="clearfix"></div>
+        <!-- Begin cards design section -->
+        <div class="card-wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="text-center fs-52 font-light">Thanks To You</h3>
+                        <div class="row">
+                        {% for i in 1..3 %}
+                            {% if articles[i] is defined %}
+                                {{this.render('partials/_single-article.twig', {network: network, article: articles[i], 'position': i+1, class: 'col-md-4 card__view-third'}) | raw}} 
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ this.render('partials/_subscribe.twig', {network:network, keyword: 'subscribe'}) | raw }}
         <div class="clearfix"></div>
         <!-- Begin cards design section -->
         <div class="card-wrap">
@@ -33,22 +53,16 @@
                     <div class="col">
                         <h3 class="text-center fs-52 font-light red--color">Our Community</h3>
                         <div class="row">
-                        {% for i in 1..3 %}
+                        {% for i in 4..21 %}
                             {% if articles[i] is defined %}
                                 {{this.render('partials/_single-article.twig', {network: network, article: articles[i], 'position': i+1, class: 'col-md-4 card__view-third'}) | raw}} 
                             {% endif %}
                         {% endfor %}
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
         {% endif %} 
 {% endif %}
 
-<!-- End learning CTA section -->
-
-<!-- End cards design section -->
-
-<!-- End CTA section -->
-{{ this.render('partials/_contribute_red_shield.twig', {network:network, keyword: 'contribute_red_shield'}) | raw }}
-{{ this.render('partials/_subscribe.twig', {network:network, keyword: 'subscribe'}) | raw }}

@@ -19,7 +19,7 @@
             ")}}
             <div class="clearfix"></div>
             <!-- Begin Subscribe CTA section -->
-            <div class="cta-wrap cta-wrap__subscribe blue-bg cta_block_{{cta.id}}" {% if ctaBackgroundImage is not empty or cta.backgroundColor is not empty %} style="{{ (ctaBackgroundImage is not empty) ? 'background-image: url('~ctaBackgroundImage~');' : ''}}{{ (cta.backgroundColor is not empty) ? 'background-color: '~cta.backgroundColor~';' : ''}}"{% endif %}>
+            <div class="cta-wrap cta-wrap__subscribe blue-bg cta_block_{{cta.id}} image-covered" {% if ctaBackgroundImage is not empty or cta.backgroundColor is not empty %} style="{{ (ctaBackgroundImage is not empty) ? 'background-image: url('~ctaBackgroundImage~');' : ''}}{{ (cta.backgroundColor is not empty) ? 'background-color: '~cta.backgroundColor~';' : ''}}"{% endif %}>
                 <div class="container">
                     <div class="row">
                         <div class="col">
