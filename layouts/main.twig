@@ -36,7 +36,7 @@
         {% set bodyClass = _Page.getBodyClass() %}
 
         {% if _AppHelper.getApplicationEnv() == 'PROD'%}
-            <link rel="stylesheet" href="{{network.templatePath}}/static/deploy/output.min.css?rel=1516705378566" type="text/css" media="all" />
+            <link rel="stylesheet" href="{{network.templatePath}}/static/deploy/output.min.css?rel=1522412377164" type="text/css" media="all" />
         {% else %}
             <link rel="stylesheet" href="{{network.templatePath}}/static/css/vendors.css" />
             <link rel="stylesheet" href="{{network.templatePath}}/static/css/default.css" />
@@ -46,7 +46,7 @@
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/box/box.css" rel="stylesheet" type="text/css" />
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
             <link href="{{_AppHelper.getAssetsStaticPath()}}/dist/vendors/ContentBox/contentbox/contentbox.css" rel="stylesheet" type="text/css" />
-            <link rel="stylesheet" href="{{network.templatePath}}/static/css/contentbox-breakup.css?rel=1516705378566" type="text/css" media="all" />
+            <link rel="stylesheet" href="{{network.templatePath}}/static/css/contentbox-breakup.css?rel=1522412377164" type="text/css" media="all" />
         {% endif %}
         {% if blog.settings['GoogleAnalyticsID'] is defined and  blog.settings['GoogleAnalyticsID'] is not empty  %}
             <!-- Google Analytics -->
