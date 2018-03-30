@@ -1,4 +1,8 @@
 {% set blogInfo = _Blog.getHomeBlogSettings()%}
+{% set ftClass = "footer-main__container__listing--j-end" %}
+{% if blogInfo.social['facebook'] is not empty or blogInfo.social['twitter'] is not empty or blogInfo.social['instagram'] is not empty or blogInfo.social['youtube'] is not empty %}
+    {% set ftClass = "" %}
+{% endif %}
 <footer class="footer">
     <!-- Begin Footer CTA section -->
     {{ this.render('./../../partials/_contribute_red_shield.twig', {network:network, keyword: 'contribute_red_shield'}) | raw }}    
@@ -20,7 +24,7 @@
                                 <img class="img-fluid" src="{{mainLogo}}" alt="footer logo" />
                             </a>
                         </div>
-                        <div class="footer-main__container__listing">
+                        <div class="footer-main__container__listing {{ftClass}}">
                             <a class="footer-main__container__listing--items" href="javscript:;">Privacy Policy   — Terms of Use</a>
                             <a class="footer-main__container__listing--items" href="javscript:;">Copyright 2018 The Salvation Army</a>
                             <a class="footer-main__container__listing--items" href="javscript:;">All donations over $2 are tax-deductible</a>
