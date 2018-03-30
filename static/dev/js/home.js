@@ -56,7 +56,11 @@ HomeController.Listing = (function ($) {
                         }
                     });
                 },
-                beforeSend: function (obj) {
+                beforeSend: function () {
+                    $(obj).find('.fa').addClass('fa fa-spin fa-spinner').removeClass('fa-map-marker');
+                },
+                onComplete: function () {
+                    $(obj).find('.fa').removeClass('fa-spin fa-spinner').addClass('fa-map-marker');
                 }
             });
         });
