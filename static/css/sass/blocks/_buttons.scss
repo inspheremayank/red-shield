@@ -92,10 +92,14 @@
     }
     &__icon {
         &--left {
-            margin-right: 8px;
+            span,i {
+                margin-right: 8px;
+            }
         }
         &--right {
-            margin-left: 8px;
+            span,i {
+                margin-left: 8px;
+            }
         }
     }
     &:focus {

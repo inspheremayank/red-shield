@@ -612,9 +612,9 @@ ul li, ol li {
     .button--green:hover, .button--green:focus {
       background: #13e399 none repeat scroll 0 0;
       border-color: #13e399; }
-  .button__icon--left {
+  .button__icon--left span, .button__icon--left i {
     margin-right: 8px; }
-  .button__icon--right {
+  .button__icon--right span, .button__icon--right i {
     margin-left: 8px; }
   .button:focus {
     outline: none; }

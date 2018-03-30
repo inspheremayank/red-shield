@@ -15,7 +15,7 @@
                 .cta_block_"~cta.id~" .button:hover {
                     color: "~cta.button['backgroundColor']~";
                     border-color: "~cta.button['backgroundColor']~";
-                    background: none repeat scroll 0 0
+                    background: "~cta.button['backgroundColor']~";
                 } 
             ")}}
             {% set ctaWithMeta = _CallToAction.get({keywords: keyword, includeMetaInfo: 1})%}
