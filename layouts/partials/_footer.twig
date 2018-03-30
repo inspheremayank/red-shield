@@ -1,5 +1,5 @@
 {% set blogInfo = _Blog.getHomeBlogSettings()%}
-{% set ftClass = "footer-main__container__listing--j-end" %}
+{% set ftClass = "footer-main__container__listing--justify-end" %}
 {% if blogInfo.social['facebook'] is not empty or blogInfo.social['twitter'] is not empty or blogInfo.social['instagram'] is not empty or blogInfo.social['youtube'] is not empty %}
     {% set ftClass = "" %}
 {% endif %}
@@ -25,8 +25,8 @@
                             </a>
                         </div>
                         <div class="footer-main__container__listing {{ftClass}}">
-                            <a class="footer-main__container__listing--items" href="javscript:;">Privacy Policy</a>
-                            <a class="footer-main__container__listing--items" href="javscript:;">— Terms of Use</a>
+                            <a class="footer-main__container__listing--items privacy" href="javscript:;">Privacy Policy</a>
+                            <a class="footer-main__container__listing--items terms" href="javscript:;">Terms of Use</a>
                             <a class="footer-main__container__listing--items" href="javscript:;">Copyright 2018 The Salvation Army</a>
                             <a class="footer-main__container__listing--items" href="javscript:;">All donations over $2 are tax-deductible</a>
                         </div>

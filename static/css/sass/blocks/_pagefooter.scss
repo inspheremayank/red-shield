@@ -18,26 +18,73 @@
             &__listing {
                 @include flexbox();
                 width: $viewportSize;
+                &--justify-end {
+                    @include justify-content(flex-end);
+                }
                 @media #{$media-ipadSmall} {
                     margin: 15px 0;
                     @include flex-direction(column,vertical);
                     text-align: center;
                 }
                 &--items {
-                    margin: 0 20px; 
-                    @include font-size(18);
+                    @include margin(0 20);
+                    @include font-size(17);
                     @extend .font-regular;
+                    position: relative;
                     @include transition(all 0.3s ease);
                     @media #{$media-desktop} {
-                        @include font-size(16);
-                        margin: 0 10px;
+                        @include font-size(15);
+                        @include margin(0 10);
                     }
                     @media #{$media-ipadSmall} {
-                        margin: 10px 0px;
+                        @include margin(10 0);
                     }
                     &:hover, &:focus {
                         color: $red;
                     }
+                    &.privacy {
+                        @include margin-right(0);
+                    }
+                    &.terms {
+                        @include margin-left(0);
+                        &:before {
+                            content: '';
+                            width: 20px;
+                            height: 1px;
+                            background-color: $black2;
+                            display: inline-block;
+                            vertical-align: middle;
+                            @include margin(0 8 0 18);
+                        }
+                    }
+                    @media #{$media-ipadPortrait} {
+                        &.privacy, &.terms {
+                            @include margin(0 10);
+                            &:before {
+                               display: none;
+                           }
+                        }
+                    }
+                    @media #{$media-ipadSmall} {
+                        &.privacy, &.terms {
+                            @include margin(10 0);
+                        }
+                    }
+                    /* &.terms {
+                        @include margin-left(40);
+                        @include padding-left(8); 
+                        &:before {
+                            content: '';
+                            width: 20px;
+                            height: 2px;
+                            background-color: $black2;
+                            position: absolute;
+                            left: -20px;
+                            top: 55%;
+                            @include translate(0,-50%);
+                            
+                        }
+                    } */
                 }
             }
             &__social {
@@ -48,7 +95,7 @@
                 }
                 a {
                     color: $blue;
-                    margin: 0 6px;
+                    margin: 0 4px;
                 }
             }
         }
