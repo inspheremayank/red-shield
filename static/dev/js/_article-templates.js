@@ -62,4 +62,103 @@ var socialModalTemplate =
                     '{{/if}}'+
                 '</div>'+
             '</div>'+
-	'{{/if}}';   
+	'{{/if}}';
+var systemCardTemplate = 
+'<div class="card__view {{class}}">'+
+        '<div class="{{cardImageClass}} {{cardWithImageClass}} {{videoClass}} swap" data-blog-guid="{{blog.guid}}" data-id="{{articleId}}" data-position="{{position}}" data-social="0" data-article-image="{{imageUrl}}" data-article-text="{{title}}">'+
+            '<a href="{{url}}" class="card__view--items">'+
+                '<div class="card__view--content">'+
+                    '<div class="mask"></div>'+
+                    '{{#if hasMedia}}'+
+                    '<figure class="image-covered" style="background-image: url({{imageUrl}})"></figure>'+
+                        '{{/if}}'+
+                        '{{#if userHasBlogAccess}}'+
+                        '<div class="optionSet">'+
+                            '<ul>'+
+                                '<div class="admin-actions__action admin-actions__action--hide HideBlogArticle" data-guid="{{guid}}" data-social="0">'+
+                                    '<li>Hide <span class="fa fa-eye-slash"></span></li>'+
+                                '</div>'+
+                                '<div class="admin-actions__action admin-actions__action--pin PinArticleBtn {{pinCls}}" data-position="{{position}}" data-social="0" data-id="{{articleId}}" title="{{pinTitle}}" data-status="{{article.isPinned}}">'+
+                                    '<li><i>{{pinText}}</i> <span class="fa fa-map-marker"></span></li>'+
+                                '</div>'+
+                                '{{#if userHasEditArticleAccess}}'+
+                                    '<div class="admin-actions__action admin-actions__action--edit" onclick="window.location=\'{{{editUrl}}}\'; return false;">'+
+                                        '<li>Edit <span class="fa fa-cog"></span></li>'+
+                                    '</div>'+
+                                '{{/if}}'+
+                            '</ul>'+
+                        '</div>'+
+                    '{{/if}}'+
+                    '<div class="social-icons"></div>'+
+                    '<div class="video-play"></div>'+
+                    '<div class="content__section-block">'+
+                        '<div class="content__section">'+
+                            '<div class="content__section-userInfo">'+    
+                                '<div class="content__section-userInfo-image image-covered" style="background-image: url({{profileImage}})"></div>'+ 
+                                '<div class="content__section-userInfo-content">'+ 
+                                   ' <span>{{createdBy.displayName}}</span>'+ 
+                                   '<span class="designation">{{createdBy.bio}}</span>'+ 
+                                '</div>'+
+                            '</div>'+
+                            '<div class="clearfix"></div>'+
+                            '<h2 class="content__section-heading">{{title}}</h2>'+
+                            '<div class="content__section-description">{{excerpt}}</div>'+
+                            '<div class="content__section-button">'+
+                                '<button class="button button--radius button--red">Learn more</button>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+            '</a>'+
+        '</div>'+
+    '</div>';
+    
+var socialCardTemplate = 
+    '<div class="card__view {{class}}">'+
+        '<div class="{{mediaClass}} {{videoClass}} swap {{socialClass}}" data-blog-guid="{{blog.guid}}" data-id="{{socialId}}" data-position="{{position}}" data-social="1" data-article-image="{{social.media.path}}" data-article-text="{{social.content}}" data-user-image="{{social.user.media.path}}" data-user-name="{{social.user.name}}">'+
+            '<a href="{{social.url}}" class="card__view--items socialCard" data-blog-guid="{{social.blog.guid}}" data-guid="{{social.guid}}">'+
+                '<div class="card__view--content">'+
+                    '<div class="mask"></div>'+
+                    '{{#if social.hasMedia}}'+
+                        '<figure class="image-covered" style="background-image: url(\'{{imageUrl}}\');"></figure>'+
+                    '{{/if}}'+
+                    '{{#if userHasBlogAccess}}'+
+                        '<div class="optionSet">'+
+                            '<ul>'+
+                                '<div class="admin-actions__action admin-actions__action--hide HideBlogArticle" data-guid="{{social.guid}}" data-social="1">'+
+                                    '<li>Hide <span class="fa fa-eye-slash"></span></li>'+
+                                '</div>'+
+                                '<div class="admin-actions__action admin-actions__action--pin PinArticleBtn {{pinCls}}" data-position="{{position}}" data-social="1" data-id="{{socialId}}" title="{{pinTitle}}" data-status="{{isPinned}}">'+
+                                    '<li><i>{{pinText}}</i> <span class="fa fa-map-marker"></span></li>'+
+                                '</div>'+
+                                '{{#if userHasEditArticleAccess}}'+
+                                    '<div class="admin-actions__action admin-actions__action--edit" data-social="1" onClick="window.open("/admin/social-funnel/update-social?guid={{social.blog.guid}}&socialguid={{social.guid}}", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=360,height=450");return false;">'+
+                                        '<li>Edit <span class="fa fa-cog"></span></li>'+
+                                    '</div>'+
+                                '{{/if}}'+
+                            '</ul>'+
+                        '</div>'+
+                    '{{/if}}'+
+                    '<div class="social-icons"></div>'+
+                    '<div class="video-play"></div>'+
+                    '<div class="content__section-block">'+
+                        '<div class="content__section">'+
+                            '<div class="content__section-userInfo">'+     
+                                '<div class="content__section-userInfo-image image-covered" style="background-image: url({{social.user.media.path}})"></div>'+ 
+                                '<div class="content__section-userInfo-content">'+ 
+                                    '<span>{{social.user.name}}</span>'+ 
+                                    '<span class="designation">{{createdBy.bio}}</span>'+ 
+                                '</div>'+ 
+                            '</div>'+
+                            '<div class="clearfix"></div>'+
+                            '<h2 class="content__section-heading">{{social.blog.title}}</h2>'+
+                            '<div class="content__section-description text__dotdot">{{social.content}}</div>'+
+                            '<div class="content__section-button">'+
+                                '<button class="button button--radius button--red">Learn more</button>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+            '</a>'+
+        '</div>'+
+    '</div>';

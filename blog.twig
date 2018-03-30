@@ -11,7 +11,8 @@
     {% set mediaThumbImage = _Media.getMediaUrl(blogInfo.media['thumb'], 600, 600, {crop:"thumb", gravity:"face", type: "user"}) %}  
 {% endif%}
 {{this.registerJs("HomeController.listing();")}}
-{% set articlesArr = _Blog.getBlogFeed({'limit': 21, 'offset': 0}) %}
+{% set limit = 10 %}
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
 <div class="page__content-main">
     <div class="container-fluid">
@@ -34,7 +35,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="row">
+        <div class="row ajaxArticles" data-existing-nonpinned-count="{{articlesArr.existingNonPinnedCount}}" data-offset="{{limit}}">
             {% for article in articles %}
                 {% set i = loop.index0 %}
                 {% if articles[i] is defined %}
@@ -43,4 +44,9 @@
             {% endfor %}
         </div>
     </div>
+    {% if articles|length >= limit %}
+        <div class="text-center my-3 loadMoreArticles">
+            <button class="button button__icon--left button--blue button--radius"><i class="fa fa-spinner fa-spin"></i>Load more</button>
+        </div>
+    {% endif %}
 </div>

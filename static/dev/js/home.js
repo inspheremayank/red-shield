@@ -350,12 +350,18 @@ HomeController.Listing = (function ($) {
 
                         for (var i in data.articles) {
                             console.log(_appJsConfig.templatePath);
-                            data.articles[i]['containerClass'] = 'col-third';
+                            console.log(data.articles[i]);
+                            data.articles[i]['class'] = 'col-md-4 card__view-third';
                             data.articles[i]['templatePath'] = _appJsConfig.templatePath;
                             data.articles[i]['pinTitle'] = (data.articles[i].isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
                             data.articles[i]['pinText'] = (data.articles[i].isPinned == 1) ? 'UN-PIN' : 'PIN';
+                            data.articles[i]['pinCls'] = (data.articles[i].isPinned == 1) ? 'selected' : '';
                             data.articles[i]['readingTime'] = renderReadingTime(data.articles[i].readingTime);
-
+                            data.articles[i]['mediaClass'] = 'without-image';
+                            data.articles[i]['cardImageClass'] = 'without-image';
+                            if(data.articles[i]["hasMedia"] == true){
+                                data.articles[i]['cardImageClass'] = '';
+                            }
                             data.articles[i]['blogClass'] = '';
                             if (data.articles[i].blog['title'] !== null) {
                                 data.articles[i]['blogClass'] = data.articles[i].blog['title'].replace(' ', '').toLowerCase();
@@ -363,7 +369,11 @@ HomeController.Listing = (function ($) {
 
                             var ImageUrl = $.fn.image({media: data.articles[i]['featuredMedia'], mediaOptions: {width: 570, height: 470, crop: 'limit'}});
                             data.articles[i]['imageUrl'] = ImageUrl;
-
+                            var profileImage = $.fn.image({media: data.articles[i]['createdBy']['media'], mediaOptions: {width: 23, height: 23, crop: 'limit'}});
+                            if (typeof profileImage === "undefined" || profileImage === null) {
+                                profileImage = 'http://d27ex7oru4dw3i.cloudfront.net/frontend/static/dist/images/avatar-sm.png';
+                            }
+                            data.articles[i]['profileImage'] = profileImage;
                             Handlebars.registerHelper('trimString', function (passedString, len) {
                                 var theString = passedString.substring(0, len);
 
@@ -379,12 +389,18 @@ HomeController.Listing = (function ($) {
                                 data.articles[i]['hasMediaVideo'] = 0;
                                 if (data.articles[i]['social']['media']['type'] === 'video') {
                                     data.articles[i]['hasMediaVideo'] = 1;
+                                    data.articles[i]['videoClass'] = 'video';
                                 }
                                 data.articles[i]['isTwitter'] = 0;
                                 if (data.articles[i]['social']['source'] === 'twitter') {
                                     data.articles[i]['isTwitter'] = 1;
                                 }
-
+                                
+                                data.articles[i]['imageUrl'] = data.articles[i].social.media['path'];
+                                data.articles[i]['socialClass'] = 'social '+ data.articles[i]["social"]["source"];
+                                if(data.articles[i]["social"]["hasMedia"] == true){
+                                    data.articles[i]['mediaClass'] = '';
+                                }
                                 articleTemplate = Handlebars.compile(socialCardTemplate);
                             } else {
                                 articleTemplate = Handlebars.compile(systemCardTemplate);
