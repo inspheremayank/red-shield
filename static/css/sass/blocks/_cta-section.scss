@@ -58,7 +58,7 @@
     }
     @include padding(40 10);
     &__subscribe {
-        @include margin(65 0);
+        @include margin(65 0 0);
         .cta-wrap__main {
             @include align-items(center);
             @media #{$media-ipadPortrait} {

@@ -309,6 +309,7 @@
         }
         &-full {
             &.single {
+                margin-bottom: 0px;
                 .card__view--items {
                     &:hover, &:focus {
                         @include box-shadow(0 0 0px 0px rgba($zblack, 0));

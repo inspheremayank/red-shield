@@ -21,7 +21,7 @@
         {% endif %}
 
         <!-- Favicon Icon -->
-        {% set favicon = network.templatePath~'/static/images/favicon.svg' %}
+        {% set favicon = network.templatePath~'/favicon/favicon-16x16.png' %}
         {% if network.favMedia | length > 0 %}
             {% set favicon = _Media.getMediaUrl(network.favMedia, 80, 80)%}
         {% endif %}
