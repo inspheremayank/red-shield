@@ -954,6 +954,24 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
           .cta-wrap__main--buttons a {
             margin: 0.5rem 0rem;
             text-align: center; } }
+  .cta-wrap__imaged:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    /* Old browsers */
+    background: -moz-linear-gradient(legacy-direction(rgba(25, 44, 84, 0.2)), #000000);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(legacy-direction(rgba(25, 44, 84, 0.2)), #000000);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(rgba(25, 44, 84, 0.2), #000000);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr="rgba(25, 44, 84, 0.2)", EndColorStr="#000000");
+    /* IE6-9 */
+    z-index: 10; }
   .cta-wrap.blue-bg {
     background-color: #11466b; }
   .cta-wrap.bg-image:before {

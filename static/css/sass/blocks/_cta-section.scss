@@ -32,6 +32,17 @@
             }
         }
     }
+    &__imaged {
+        &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            @include size($viewportSize);
+            @include linear-gradient(rgba(25, 44, 84, 0.2), $zblack);
+            z-index: 10;
+        }
+    }
     &.blue-bg {
         background-color: $blue;
     }

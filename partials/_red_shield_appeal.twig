@@ -19,7 +19,7 @@
             ")}}
             <div class="clearfix"></div>
             <!-- Begin About CTA section -->
-            <div class="cta-wrap cta-wrap__about cta_block_{{cta.id}}"{% if ctaBackgroundImage is not empty or cta.backgroundColor is not empty %} style="{{ (ctaBackgroundImage is not empty) ? 'background-image: url('~ctaBackgroundImage~');' : ''}}{{ (cta.backgroundColor is not empty) ? 'background-color: '~cta.backgroundColor~';' : ''}}"{% endif %}>
+            <div class="cta-wrap cta-wrap__about cta_block_{{cta.id}} {% if ctaBackgroundImage %} image-covered cta-wrap__imaged {% endif %}"{% if ctaBackgroundImage is not empty or cta.backgroundColor is not empty %} style="{{ (ctaBackgroundImage is not empty) ? 'background-image: url('~ctaBackgroundImage~');' : ''}}{{ (cta.backgroundColor is not empty) ? 'background-color: '~cta.backgroundColor~';' : ''}}"{% endif %}>
                 <div class="container">
                     <div class="row">
                         <div class="col">
