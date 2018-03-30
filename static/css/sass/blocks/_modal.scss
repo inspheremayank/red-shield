@@ -66,9 +66,12 @@
     }
      &__image_container {
          margin-left: 330px;
-         padding: 102px 50px;
+         padding: 102px 80px;
          height: 100%;
          width: calc(100% - 330px);
+         @media screen and (max-width: 1400px) {
+            padding: 102px 50px; 
+         }
          @media #{$media-ipadPortrait} {
              width: 100%;
               padding: 0;
@@ -266,6 +269,9 @@
         }
         svg > g {
             stroke: #2d2d2d;
+            @media #{$media-ipadPortrait} {
+                stroke: #ffffff;
+            }
         }
         &__text {
             color: #2d2d2d;

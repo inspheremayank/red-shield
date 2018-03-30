@@ -207,6 +207,7 @@
                             &:after {
                                 color: $red;
                                 @include font-size(25);
+                                line-height: 1;
                             }
                         }
                     }

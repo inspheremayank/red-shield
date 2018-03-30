@@ -2140,7 +2140,8 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
     .card__view .video .card__view--items:hover .card__view--content .video-play:after, .card__view .video .card__view--items:focus .card__view--content .video-play:after {
       color: #d0021b;
       font-size: 1.5625rem;
-      line-height: 1.875rem; }
+      line-height: 1.875rem;
+      line-height: 1; }
   .card__view .social.video .card__view--content .video-play {
     top: 60px; }
   .card__view .social .card__view--content .content__section-userInfo-content .designation {
@@ -2343,9 +2344,12 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
     margin-top: 20px; }
   .social-modal__image_container {
     margin-left: 330px;
-    padding: 102px 50px;
+    padding: 102px 80px;
     height: 100%;
     width: calc(100% - 330px); }
+    @media screen and (max-width: 1400px) {
+      .social-modal__image_container {
+        padding: 102px 50px; } }
     @media screen and (max-width: 991px) {
       .social-modal__image_container {
         width: 100%;
@@ -2522,6 +2526,9 @@ input.input--small36[type="text"], input.input--small36[type="password"], input.
       margin-left: 2px; }
     .social-modal .close svg > g {
       stroke: #2d2d2d; }
+      @media screen and (max-width: 991px) {
+        .social-modal .close svg > g {
+          stroke: #ffffff; } }
     .social-modal .close__text {
       color: #2d2d2d;
       font-size: 15px;
