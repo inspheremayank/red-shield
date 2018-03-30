@@ -1,6 +1,6 @@
 {% set ctaBackgroundImage = "" %}
 {% if keyword is defined and keyword is not empty %}
-    {% set cta = _CallToAction.getKeywordBasedCTA(keyword)%}
+    {% set cta = _CallToAction.get({'keywords': keyword, 'includeMetaInfo': 1})%}
     {% if cta is defined and cta|length > 0 %}
         {% if cta.id is defined and cta.id is not empty %}            
             {% if(cta.media['id'] is defined and cta.media['id'] is not empty) %}
@@ -30,11 +30,18 @@
                                 <div class="cta-wrap__main--title"></div>
                                 <div class="cta-wrap__main--description">{{cta.title |raw}}</div>
                                 <div class="cta-wrap__main--buttons">
-                                    <a class="button button--radius button--black" href="javascript:;">FUNDRAISE</a>
-                                    {% if cta.button.text is defined and cta.button.text is not empty %}
-                                        <a class="button button--radius button--red" href="{{cta.button['url']}}">{{cta.button['text'] |raw | upper}}</a>
+                                    {% if cta.additionalInfo.cta_fundraise_url is defined and cta.additionalInfo.cta_fundraise_url is not empty %}
+                                        <a class="button button--radius button--black" href="{{cta.additionalInfo.cta_fundraise_url}}">FUNDRAISE</a>
                                     {% endif %}
-                                    <a class="button button--radius button--lightBlue" href="javascript:;">VOLUNTEER</a>
+                                    
+                                    {% if cta.additionalInfo.cta_donate_url is defined and cta.additionalInfo.cta_donate_url is not empty %}
+                                        <a class="button button--radius button--red" href="{{cta.additionalInfo.cta_donate_url}}">DONATE</a>
+                                    {% endif %}
+                                    
+                                    {% if cta.additionalInfo.cta_volunteer_url is defined and cta.additionalInfo.cta_volunteer_url is not empty %}
+                                        <a class="button button--radius button--lightBlue" href="{{cta.additionalInfo.cta_volunteer_url}}">VOLUNTEER</a>
+                                    {% endif %}
+                                    
                                 </div>
                             </div>
                         </div>

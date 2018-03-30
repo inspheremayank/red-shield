@@ -29,14 +29,16 @@
                                     <div class="cta-wrap__main--description">{{cta.description |raw}}</div>
                                 </div>
                                 <div class="cta-wrap__main--sr">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input type="text" placeholder="your email" />
-                                            {% if cta.button.text is defined and cta.button.text is not empty %}
-                                                <button class="button button--red" type="submit">{{cta.button['text'] |raw }}</button>
-                                            {% endif %}
+                                    <form id="subForm" class="js-cm-form" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="191722FC90141D02184CB1B62AB3DC2653358B42BF2B235B33DBD03580926255A127F2FB8E62EE28DE2A8A75B92E671591CFE723998F64CEFE36D01AB6B1120D"> 
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input id="fieldEmail" class="js-cm-email-input" name="cm-gjdltt-gjdltt" type="email" required />
+                                                {% if cta.button.text is defined and cta.button.text is not empty %}
+                                                    <button class="button button--red js-cm-submit-button" type="submit">{{cta.button['text'] |raw }}</button>
+                                                {% endif %}
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

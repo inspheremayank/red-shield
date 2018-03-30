@@ -23,9 +23,7 @@
                 "contribute_red_shield" : "This is the CTA id for contribute_red_shield",
                 "home_middle_page" : "This is the place id for the placement of Call to Action 2",
                 "home_footer_page" : "This is the place id for the placement of Call to Action 3"
-            }
-        },
-        "cta": {
+            },
             "extendedAttributes": [
                 {
                     "label" : "External Video Url",
@@ -33,6 +31,27 @@
                     "type": "inputbox",
                     "inputType": "url",
                     "placeholder": "Enter external video Url"
+                },
+                {
+                    "label" : "Fundarise Url",
+                    "name": "cta_fundraise_url",
+                    "type": "inputbox",
+                    "inputType": "url",
+                    "placeholder": "Enter Fundarise Url"
+                },
+                {
+                    "label" : "Donate Url",
+                    "name": "cta_donate_url",
+                    "type": "inputbox",
+                    "inputType": "url",
+                    "placeholder": "Donate Url"
+                },
+                {
+                    "label" : "Volunteer Url",
+                    "name": "cta_volunteer_url",
+                    "type": "inputbox",
+                    "inputType": "url",
+                    "placeholder": "Volunteer Url"
                 }
             ]
         }
