@@ -88,74 +88,8 @@
                                         </div>
                                         <div class="article__main-wrapper">
                                             <div class="row">
-                                                <div class="col-12">
-                                                    <div class="article__main-social" id="socialFix">
-                                                        <ul>
-                                                            {% set subject = article.title~' '~_Network.getNetworkTitle()%}
-                                                            {% set body = 'I thought you would find this article interesting'|url_encode%}
-                                                            {% set body = body ~'%0D%0A%0D%0A' ~ article.url%}
-                                                            <li>
-                                                                <a href="mailto:?subject={{subject}}&body={{body}}" target="_blank">
-                                                                    <span class="fa fa-envelope"></span>
-                                                                </a>
-
-                                                            </li>
-                                                            <li>
-                                                                <a href="http://www.facebook.com/sharer/sharer.php?u={{article.url}}" target="_blank">
-                                                                    <span class="fa fa-facebook"></span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="http://twitter.com/intent/tweet?status={{article.url}}" target="_blank">
-                                                                    <span class="fa fa-twitter"></span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="https://www.linkedin.com/cws/share?url={{article.url}}" target="_blank">
-                                                                    <span class="fa fa-linkedin"></span>
-                                                                </a>
-                                                            </li>                                           
-                                                        </ul>
-                                                    </div>
-                                                </div>
                                                 <div class="col-10 m-auto">
                                                     <div class="article__main-content">{{article.content | raw}}</div>
-                                                    <div class="clearfix"></div>
-                                                    <div class="article__main-author-wrapper">
-                                                        <div class="section__head with-border">
-                                                            <h3>About the Authors</h3>
-                                                        </div>
-                                                        <div class="author__listing">
-                                                            <ul>
-                                                                <li>
-                                                                    <figure>
-                                                                        <amp-img src="{{_Media.getMediaUrl(article.createdBy['media'], 175, 145, {crop:'thumb', gravity:'face',type:'user'})}}" class="" width="110" height="110" layout="responsive"></amp-img>
-                                                                    </figure>
-                                                                    {% set userMeta = _MetaInfo.getMetaData('user', article.createdBy['guid'])%}
-                                                                    <div class="author__listing-content">
-                                                                        <h4>{{article.createdBy['displayName'] | capitalize}}</h4>
-                                                                        <h5>{{userMeta.long_position}}</h5>
-                                                                        <p>{{article.createdBy['bio'] | raw}}</p>
-                                                                    </div>
-                                                                </li>
-                                                                {% if article.createdBy['coauthors'] | length > 0%}
-                                                                    {% for author in article.createdBy['coauthors'] %}
-                                                                        <li>
-                                                                            <figure>
-                                                                                <amp-img src="{{_Media.getMediaUrl(author['media'], 175, 145, {crop:'thumb', gravity:'face',type:'user'})}}" class="" width="110" height="110" layout="responsive"></amp-img>
-                                                                            </figure>
-                                                                            <div class="author__listing-content">
-                                                                                <h4>{{author['displayName'] | capitalize}}</h4>
-                                                                                {% set userMeta = _MetaInfo.getMetaData('user', author['guid'])%}
-                                                                                <h5>{{userMeta.long_position}}</h5>
-                                                                                <p>{{author['bio'] | raw}}</p>
-                                                                            </div>
-                                                                        </li>
-                                                                    {% endfor %}
-                                                                {% endif %}
-                                                            </ul>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
