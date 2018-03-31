@@ -1,8 +1,8 @@
 {{ set(this, 'params', {isHomePageOnly: "1"})  }}
 {% set network = _Network.getNetworkData() %}
 {{set(this,'title',(network.title))}}
-
-{% set articlesArr = _Blog.getBlogFeed({'limit': 21, 'offset': 0}) %}
+{% set limit = 10 %}
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
 
 {#{{_AppHelper.printArray(blogList)}}#}
@@ -52,16 +52,19 @@
                 <div class="row">
                     <div class="col">
                         <h3 class="text-center fs-52 font-light red--color">Our Community</h3>
-                        <div class="row">
-                        {% for i in 4..21 %}
-                            {% if articles[i] is defined %}
-                                {{this.render('partials/_single-article.twig', {network: network, article: articles[i], 'position': i+1, class: 'col-md-4 card__view-third'}) | raw}} 
-                            {% endif %}
-                        {% endfor %}
+                        <div class="row ajaxArticles" data-existing-nonpinned-count="{{articlesArr.existingNonPinnedCount}}" data-offset="{{limit}}">
+                            {% for i in 4..10 %}
+                                {% if articles[i] is defined %}
+                                    {{this.render('partials/_single-article.twig', {network: network, article: articles[i], 'position': i+1, class: 'col-md-4 card__view-third'}) | raw}} 
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="text-center my-3 loadMoreArticles">
+            <button class="button button__icon--left button--blue button--radius"><i class="fa fa-spin"></i>Load more</button>
         </div>
         {% endif %} 
 {% endif %}
